@@ -65,23 +65,6 @@ Database: MySQL / SQLite (as applicable)
 IDE: IntelliJ IDEA / NetBeans / Eclipse
 Version Control: Git & GitHub
 
-🚀 How to Run
-
-Clone the repository:
-git clone https://github.com/your-username/thogakade-shop-management.git
-Open the project in your IDE.
-Ensure database configuration matches your local setup.
-Run the Main.java file to launch the application.
-
-📦 Submission Info
-
-.zip file: Must contain the full project folder (source + resources).
-GitHub repository: Must contain the same complete project.
-
-🕒 Deadline
-
-Refer to the LMS for the official submission date.
-
 👩‍💻 Developer
 Sarasi Prarthana
 Institute of Computer Engineering Technology
