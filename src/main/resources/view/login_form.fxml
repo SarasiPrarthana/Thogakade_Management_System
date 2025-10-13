@@ -44,7 +44,7 @@
       </ImageView>
       <AnchorPane layoutX="469.0" layoutY="254.0" prefHeight="367.0" prefWidth="514.0" style="-fx-background-color: #D3D3D3;">
          <children>
-            <TextField layoutX="111.0" layoutY="110.0" prefHeight="43.0" prefWidth="339.0" />
+            <TextField fx:id="txtUserNameId" layoutX="111.0" layoutY="110.0" prefHeight="43.0" prefWidth="339.0" />
             <Text layoutX="111.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name*">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
@@ -55,8 +55,8 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Text>
-            <PasswordField layoutX="111.0" layoutY="201.0" prefHeight="43.0" prefWidth="339.0" />
-            <Button layoutX="111.0" layoutY="281.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="339.0" style="-fx-background-color: #7a1811;" text="LOGIN" textFill="#e4e4e4">
+            <PasswordField fx:id="txtPasswordId" layoutX="111.0" layoutY="201.0" prefHeight="43.0" prefWidth="339.0" />
+            <Button layoutX="111.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="43.0" prefWidth="339.0" style="-fx-background-color: #7a1811;" text="LOGIN" textFill="#e4e4e4">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
