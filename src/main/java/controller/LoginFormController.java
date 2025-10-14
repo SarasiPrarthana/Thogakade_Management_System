@@ -8,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class LoginFormController {
@@ -19,46 +18,35 @@ public class LoginFormController {
     @FXML
     private TextField txtUserNameId;
 
-    Stage stage = new Stage();
-
     @FXML
     void btnLoginAction(ActionEvent event) {
-
         String userName = txtUserNameId.getText();
-        String  password = txtPasswordId.getText();
+        String password = txtPasswordId.getText();
 
-        if (userName.equals("Admin")){
-            if (password.equals("1234")){
-                try {
-                    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"))));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                txtUserNameId.setText("");
-                txtPasswordId.setText("");
-            }else {
-                System.out.println("Invalid Password");
-                txtUserNameId.setText("");
-                txtPasswordId.setText("");
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid Password");
-                alert.setContentText("Please Enter Valid User Name and Password");
-                alert.showAndWait();
+        if (userName.equals("Admin") && password.equals("1234")) {
+            try {
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard.fxml")));
+                stage.setScene(scene);
+                stage.centerOnScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showError("Error loading dashboard.fxml");
             }
-        }else{
-            System.out.println("Invalid UserName");
-            txtUserNameId.setText("");
-            txtPasswordId.setText("");
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid Password");
-            alert.setContentText("Please Enter Valid User Name and Password");
-            alert.showAndWait();
+            txtUserNameId.clear();
+            txtPasswordId.clear();
+        } else {
+            showError("Invalid Username or Password");
+            txtUserNameId.clear();
+            txtPasswordId.clear();
         }
-
     }
 
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Login Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
