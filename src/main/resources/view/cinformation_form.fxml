@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="691.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CInformationController">
+   <children>
+      <ImageView fitHeight="128.0" fitWidth="949.0" layoutX="-3.0" layoutY="-3.0">
+         <image>
+            <Image url="@../images/081aed2e7ddc029f940021ddb22145fc.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="128.0" prefWidth="947.0" style="-fx-background-color: #7a1811;">
+         <children>
+            <Text fill="#fafafa" layoutX="163.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CUSTOMER MANAGEMENT">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="571.0" fitWidth="947.0" layoutY="124.0" opacity="0.17">
+         <image>
+            <Image url="@../images/images%20(2).png" />
+         </image>
+      </ImageView>
+      <TextField layoutY="150.0" prefHeight="34.0" prefWidth="226.0" promptText="Customer ID" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="479.0" layoutY="247.0" prefHeight="34.0" prefWidth="226.0" promptText="Postal Code" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="113.0" layoutY="196.0" prefHeight="34.0" prefWidth="226.0" promptText="Salary" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="661.0" layoutY="196.0" prefHeight="34.0" prefWidth="226.0" promptText="City" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="218.0" layoutY="247.0" prefHeight="34.0" prefWidth="226.0" promptText="Province" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="393.0" layoutY="196.0" prefHeight="34.0" prefWidth="226.0" promptText="Address" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="719.0" layoutY="150.0" prefHeight="34.0" prefWidth="226.0" promptText="DOB" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="479.0" layoutY="150.0" prefHeight="34.0" prefWidth="226.0" promptText="Name" style="-fx-background-color: #57544b;" />
+      <TextField layoutX="238.0" layoutY="150.0" prefHeight="34.0" prefWidth="226.0" promptText="Title" style="-fx-background-color: #57544b;" />
+   </children>
+</AnchorPane>
