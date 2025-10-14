@@ -1,0 +1,21 @@
+.button {
+    -fx-background-color: #1c20a3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;  /* 🔹 Rounds the button corners */
+    -fx-border-radius: 20;      /* 🔹 Rounds the border corners too */
+}
+
+.text-field, .combo-box {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+
+.anchor-pane {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 20;  /* 🔹 Rounds pane corners */
+    -fx-border-color: #1c20a3;  /* Optional: add border color */
+    -fx-border-radius: 20;      /* 🔹 Match the background radius */
+    -fx-border-width: 2;
+}
