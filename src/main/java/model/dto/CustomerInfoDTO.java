@@ -2,8 +2,8 @@ package model.dto;
 
 import lombok.*;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -17,7 +17,7 @@ public class CustomerInfoDTO {
 
     private  String dob;
 
-    private  double salary;
+    private double salary;
 
     private  String address;
 

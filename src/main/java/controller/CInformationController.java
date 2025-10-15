@@ -136,7 +136,7 @@ public class CInformationController implements Initializable {
 
         txtTbl.setItems(customerInfoDTOS);
 
-        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)->{
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null){
                 txtCustID.setText(newValue.getCustomerID());
                 txtTitle.setText(newValue.getTitle());
