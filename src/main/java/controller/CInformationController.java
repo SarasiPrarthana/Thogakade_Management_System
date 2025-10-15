@@ -110,10 +110,26 @@ public class CInformationController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
+        CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
+        customerInfoDTOS.remove(selectedCustomer);
+        txtTbl.refresh();
+
     }
 
     @FXML
     void btnUpdateAction(ActionEvent event) {
+
+//        CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
+//
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setCustomerID(txtCustID.getText());
 
     }
 
