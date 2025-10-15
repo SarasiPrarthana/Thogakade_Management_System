@@ -17,7 +17,7 @@ public class CustomerInfoDTO {
 
     private  String dob;
 
-    private  String salary;
+    private  double salary;
 
     private  String address;
 
