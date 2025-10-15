@@ -58,7 +58,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="274.0" layoutY="319.0" mnemonicParsing="false" onAction="#btnViewActiom" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #7a1811;" text="VIEW" textFill="WHITE">
+      <Button layoutX="274.0" layoutY="319.0" mnemonicParsing="false" onAction="#btnClearAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #7a1811;" text="CLEAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

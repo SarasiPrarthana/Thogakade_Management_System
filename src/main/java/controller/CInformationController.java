@@ -136,8 +136,18 @@ public class CInformationController implements Initializable {
     }
 
     @FXML
-    void btnViewActiom(ActionEvent event) {
+    void btnClearAction(ActionEvent event) {
 
+        txtCustID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDOB.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        
     }
 
     @Override
