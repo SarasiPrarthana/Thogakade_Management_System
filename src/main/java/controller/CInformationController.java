@@ -147,7 +147,7 @@ public class CInformationController implements Initializable {
         txtCity.setText("");
         txtProvince.setText("");
         txtPostalCode.setText("");
-        
+
     }
 
     @Override
