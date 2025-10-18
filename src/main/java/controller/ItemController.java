@@ -15,7 +15,7 @@ public class ItemController {
     @FXML
     void btnClickAction(ActionEvent event) {
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/item_form.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/itemInformation_form.fxml"))));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

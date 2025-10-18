@@ -18,7 +18,11 @@ public class CInformationController implements Initializable {
 
     ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList(
             new CustomerInfoDTO("C001","Mr","Danapala","1981-02-06",40000.0,"No.20 Walana","Panadura","Western","12500"),
-            new CustomerInfoDTO("C001","Mr","Danapala","1981-02-06",40000.0,"No.20 Walana","Panadura","Western","12500")
+            new CustomerInfoDTO("C002","Mrs","Inoka","1999-05-30",35000.0,"No.406 Alubomulla","Panadura","Western","12500"),
+            new CustomerInfoDTO("C003","Mrs","Darshani","1978-07-01",80000.0,"No.3/A Gamunu Mawatha","Moratuwa","Western","12500"),
+            new CustomerInfoDTO("C004","Mr","Kamal","2000-02-14",48000.0,"No.200/A S.Mahinda Road","Bandaragama","Western","12500"),
+            new CustomerInfoDTO("C005","Mrs","Nimali","1995-12-09",52000.0,"No.22 Church Road","Kaluthara","Western","12500"),
+            new CustomerInfoDTO("C006","Mr","Dasun","1979-01-21",100000.0,"No.456 Kiriberiya","Panadura","Western","12500")
     );
 
     @FXML
