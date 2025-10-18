@@ -27,11 +27,11 @@
             <Image url="@../images/images%20(2).png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtPostalCode" layoutX="525.0" layoutY="240.0" prefHeight="34.0" prefWidth="226.0" promptText="Postal Code" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtSalary" layoutX="35.0" layoutY="171.0" prefHeight="34.0" prefWidth="226.0" promptText="Salary" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtCity" layoutX="671.0" layoutY="171.0" prefHeight="34.0" prefWidth="226.0" promptText="City" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtProvince" layoutX="181.0" layoutY="240.0" prefHeight="34.0" prefWidth="226.0" promptText="Province" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtAddress" layoutX="365.0" layoutY="171.0" prefHeight="34.0" prefWidth="226.0" promptText="Address" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtUnitPrice" layoutX="525.0" layoutY="240.0" prefHeight="34.0" prefWidth="226.0" promptText="Unit Price" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtItemCode" layoutX="35.0" layoutY="171.0" prefHeight="34.0" prefWidth="226.0" promptText="Item Code" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtCategory" layoutX="671.0" layoutY="171.0" prefHeight="34.0" prefWidth="226.0" promptText="Category" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtQtyOnHand" layoutX="181.0" layoutY="240.0" prefHeight="34.0" prefWidth="226.0" promptText="Qty On Hand" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtDescription" layoutX="365.0" layoutY="171.0" prefHeight="34.0" prefWidth="226.0" promptText="Description" style="-fx-background-color: #965a61;" />
       <Button layoutX="53.0" layoutY="311.0" mnemonicParsing="false" onAction="#btnAddAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #7a1811;" text="ADD" textFill="WHITE">
          <font>
             <Font name="System Bold" size="13.0" />
@@ -54,11 +54,11 @@
       </Button>
       <TableView fx:id="txtTbl" layoutX="24.0" layoutY="358.0" prefHeight="286.0" prefWidth="918.0">
          <columns>
-            <TableColumn fx:id="colID" prefWidth="129.59997367858887" text="Customer ID" />
-            <TableColumn fx:id="colTitle" prefWidth="230.4000244140625" text="Title" />
-            <TableColumn fx:id="colName" prefWidth="231.99996948242188" text="Name" />
-            <TableColumn fx:id="colDOB" prefWidth="122.39996337890625" text="DOB" />
-            <TableColumn fx:id="colSalary" minWidth="0.0" prefWidth="205.5999755859375" text="Salary" />
+            <TableColumn fx:id="colItemCode" prefWidth="129.59997367858887" text="Item Code" />
+            <TableColumn fx:id="colDescription" prefWidth="230.4000244140625" text="Description" />
+            <TableColumn fx:id="colCategory" prefWidth="231.99996948242188" text="Category" />
+            <TableColumn fx:id="colQtyOnHand" prefWidth="122.39996337890625" text="Qty On Hand" />
+            <TableColumn fx:id="colUnitPrice" minWidth="0.0" prefWidth="205.5999755859375" text="Unit Price" />
          </columns>
       </TableView>
    </children>
