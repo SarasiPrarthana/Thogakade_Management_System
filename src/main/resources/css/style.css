@@ -1,11 +1,3 @@
-.button {
-    -fx-background-color: #1c20a3;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 18;  /* 🔹 Rounds the button corners */
-    -fx-border-radius: 18;      /* 🔹 Rounds the border corners too */
-}
-
 .text-field, .combo-box {
     -fx-background-radius: 18;
     -fx-border-radius: 18;
@@ -26,3 +18,13 @@
      -fx-border-radius: 18;      /* 🔹 Match the background radius */
      -fx-border-width: 2;
 }
+
+.text-field{
+    -fx-background-color: #fff1f1;  /* light pink background */
+    -fx-text-fill: #4a0000;        /* dark red text color */
+    -fx-font-weight: bold;         /* make text bold */
+    -fx-border-color: #a52a2a;     /* optional: add border color */
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
