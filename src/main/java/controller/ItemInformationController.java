@@ -104,6 +104,16 @@ public class ItemInformationController implements Initializable {
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
+        ItemInfoDTO selectedItem = txtTbl.getSelectionModel().getSelectedItem();
+
+        selectedItem.setItemCode(txtItemCode.getText());
+        selectedItem.setDescription(txtDescription.getText());
+        selectedItem.setCategory(txtCategory.getText());
+        selectedItem.setQtyOnHand(Integer.parseInt(txtQtyOnHand.getText()));
+        selectedItem.setUnitPrice(Double.parseDouble(txtUnitPrice.getText()));
+
+        txtTbl.refresh();
+
     }
 
     @Override
