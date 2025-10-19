@@ -84,6 +84,12 @@ public class ItemInformationController implements Initializable {
     @FXML
     void btnClearAction(ActionEvent event) {
 
+        txtItemCode.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtQtyOnHand.setText("");
+        txtUnitPrice.setText("");
+
     }
 
     @FXML
