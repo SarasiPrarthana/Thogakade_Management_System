@@ -62,6 +62,23 @@ public class ItemInformationController implements Initializable {
     @FXML
     void btnAddAction(ActionEvent event) {
 
+        String itemCode = txtItemCode.getText();
+        String description = txtDescription.getText();
+        String category = txtCategory.getText();
+        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
+        Double unitPrice = Double.valueOf(txtUnitPrice.getText());
+
+        ItemInfoDTO itemInfoDTO = new ItemInfoDTO(itemCode,description,category,qtyOnHand,unitPrice);
+        itemInfoDTOS.add(itemInfoDTO);
+
+        txtTbl.refresh();
+
+        txtItemCode.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtQtyOnHand.setText("");
+        txtUnitPrice.setText("");
+
     }
 
     @FXML
