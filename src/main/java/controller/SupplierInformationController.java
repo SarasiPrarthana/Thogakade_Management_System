@@ -142,6 +142,21 @@ public class SupplierInformationController implements Initializable {
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
+        SupplierInfoDTO selectedSupplier = txtTbl.getSelectionModel().getSelectedItem();
+
+        selectedSupplier.setSupplierID(txtSupplierID.getText());
+        selectedSupplier.setName(txtName.getText());
+        selectedSupplier.setCompanyName(txtCompanyName.getText());
+        selectedSupplier.setAddress(txtAddress.getText());
+        selectedSupplier.setCity(txtCity.getText());
+        selectedSupplier.setProvince(txtProvince.getText());
+        selectedSupplier.setPostalCode(txtPostalCode.getText());
+        selectedSupplier.setPhone(txtPhone.getText());
+        selectedSupplier.setEmail(txtEmail.getText());
+
+        txtTbl.refresh();
+
+
     }
 
     @Override
