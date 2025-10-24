@@ -133,6 +133,10 @@ public class SupplierInformationController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
+        SupplierInfoDTO selectedSupplier = txtTbl.getSelectionModel().getSelectedItem();
+        supplierInfoDTOS.remove(selectedSupplier);
+        txtTbl.refresh();
+
     }
 
     @FXML
