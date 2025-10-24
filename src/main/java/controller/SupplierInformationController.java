@@ -118,6 +118,16 @@ public class SupplierInformationController implements Initializable {
     @FXML
     void btnClearAction(ActionEvent event) {
 
+        txtSupplierID.setText("");
+        txtName.setText("");
+        txtCompanyName.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+
     }
 
     @FXML
@@ -161,5 +171,5 @@ public class SupplierInformationController implements Initializable {
 
 
     }
-    
+
 }
