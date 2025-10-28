@@ -12,7 +12,7 @@ public class EmployeeInfoController {
     private TableColumn<?, ?> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colCity;
+    private TableColumn<?, ?> colContactNumber;
 
     @FXML
     private TableColumn<?, ?> colDOB;
@@ -21,49 +21,55 @@ public class EmployeeInfoController {
     private TableColumn<?, ?> colID;
 
     @FXML
+    private TableColumn<?, ?> colJoinedDate;
+
+    @FXML
+    private TableColumn<?, ?> colNIC;
+
+    @FXML
     private TableColumn<?, ?> colName;
 
     @FXML
-    private TableColumn<?, ?> colPostalCode;
+    private TableColumn<?, ?> colPosition;
 
     @FXML
-    private TableColumn<?, ?> colProvince;
+    private TableColumn<?, ?> colPostalCcolStatusode1;
 
     @FXML
     private TableColumn<?, ?> colSalary;
 
     @FXML
-    private TableColumn<?, ?> colTitle;
-
-    @FXML
     private TextField txtAddress;
 
     @FXML
-    private TextField txtCity;
-
-    @FXML
-    private TextField txtCustID;
+    private TextField txtContactNumber;
 
     @FXML
     private TextField txtDOB;
 
     @FXML
+    private TextField txtEmployeeID;
+
+    @FXML
+    private TextField txtJoinedDate;
+
+    @FXML
+    private TextField txtNIC;
+
+    @FXML
     private TextField txtName;
 
     @FXML
-    private TextField txtPostalCode;
-
-    @FXML
-    private TextField txtProvince;
+    private TextField txtPosition;
 
     @FXML
     private TextField txtSalary;
 
     @FXML
-    private TableView<?> txtTbl;
+    private TextField txtStatus;
 
     @FXML
-    private TextField txtTitle;
+    private TableView<?> txtTbl;
 
     @FXML
     void btnAddAction(ActionEvent event) {

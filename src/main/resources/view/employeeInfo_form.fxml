@@ -10,7 +10,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeInfoController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="128.0" prefWidth="947.0" style="-fx-background-color: #7a1811;" />
@@ -24,26 +23,27 @@
             <Image url="@../images/images%20(2).png" />
          </image>
       </ImageView>
-      <TextField fx:id="txtCustID" layoutX="10.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="Customer ID" style="-fx-background-color: #965a61;" styleClass="text-field" stylesheets="@../css/style.css" />
-      <TextField fx:id="txtPostalCode" layoutX="489.0" layoutY="257.0" prefHeight="34.0" prefWidth="226.0" promptText="Postal Code" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtSalary" layoutX="123.0" layoutY="206.0" prefHeight="34.0" prefWidth="226.0" promptText="Salary" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtCity" layoutX="671.0" layoutY="206.0" prefHeight="34.0" prefWidth="226.0" promptText="City" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtProvince" layoutX="228.0" layoutY="257.0" prefHeight="34.0" prefWidth="226.0" promptText="Province" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtAddress" layoutX="403.0" layoutY="206.0" prefHeight="34.0" prefWidth="226.0" promptText="Address" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtEmployeeID" layoutX="10.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="Employee ID" style="-fx-background-color: #965a61;" styleClass="text-field" stylesheets="@../css/style.css" />
+      <TextField fx:id="txtJoinedDate" layoutX="408.0" layoutY="255.0" prefHeight="34.0" prefWidth="226.0" promptText="Joined Date" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtPosition" layoutX="123.0" layoutY="206.0" prefHeight="34.0" prefWidth="226.0" promptText="Position" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtContactNumber" layoutX="671.0" layoutY="206.0" prefHeight="34.0" prefWidth="226.0" promptText="Contact Number" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtAddress" layoutX="149.0" layoutY="255.0" prefHeight="34.0" prefWidth="226.0" promptText="Address" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtSalary" layoutX="403.0" layoutY="206.0" prefHeight="34.0" prefWidth="226.0" promptText="Salary" style="-fx-background-color: #965a61;" />
       <TextField fx:id="txtDOB" layoutX="729.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="DOB" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtName" layoutX="489.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="Name" style="-fx-background-color: #965a61;" />
-      <TextField fx:id="txtTitle" layoutX="248.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="Title" style="-fx-background-color: #965a61;" />
-      <TableView fx:id="txtTbl" layoutX="24.0" layoutY="375.0" prefHeight="254.0" prefWidth="918.0">
+      <TextField fx:id="txtNIC" layoutX="489.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="NIC" style="-fx-background-color: #965a61;" />
+      <TextField fx:id="txtName" layoutX="248.0" layoutY="160.0" prefHeight="34.0" prefWidth="226.0" promptText="Name" style="-fx-background-color: #965a61;" />
+      <TableView fx:id="txtTbl" layoutX="24.0" layoutY="375.0" prefHeight="254.0" prefWidth="904.0">
          <columns>
-            <TableColumn fx:id="colID" prefWidth="101.59997844696045" text="Customer ID" />
-            <TableColumn fx:id="colTitle" prefWidth="91.20001220703125" text="Title" />
-            <TableColumn fx:id="colName" prefWidth="83.19999694824219" text="Name" />
-            <TableColumn fx:id="colDOB" prefWidth="109.5999755859375" text="DOB" />
-            <TableColumn fx:id="colSalary" minWidth="0.0" prefWidth="108.00006103515625" text="Salary" />
-            <TableColumn fx:id="colAddress" minWidth="4.79998779296875" prefWidth="115.99993896484375" text="Address" />
-            <TableColumn fx:id="colCity" prefWidth="112.79998779296875" text="City" />
-            <TableColumn fx:id="colProvince" prefWidth="103.20013427734375" text="Province" />
-            <TableColumn fx:id="colPostalCode" prefWidth="92.800048828125" text="Postal Code" />
+            <TableColumn fx:id="colID" prefWidth="79.99999809265137" text="Employee ID" />
+            <TableColumn fx:id="colName" prefWidth="80.00000762939453" text="Name" />
+            <TableColumn fx:id="colNIC" prefWidth="82.4000244140625" text="NIC" />
+            <TableColumn fx:id="colDOB" prefWidth="94.39996337890625" text="DOB" />
+            <TableColumn fx:id="colPosition" minWidth="0.0" prefWidth="116.0" text="Position" />
+            <TableColumn fx:id="colSalary" minWidth="4.79998779296875" prefWidth="108.80001831054688" text="Salary" />
+            <TableColumn fx:id="colContactNumber" prefWidth="110.39996337890625" text="Contact Number" />
+            <TableColumn fx:id="colAddress" minWidth="4.800048828125" prefWidth="73.60003662109375" text="Address" />
+            <TableColumn fx:id="colJoinedDate" minWidth="0.0" prefWidth="86.4000244140625" text="Joined Date" />
+            <TableColumn fx:id="colPostalCcolStatusode1" prefWidth="67.2000732421875" text="Status" />
          </columns>
       </TableView>
       <Button layoutX="53.0" layoutY="329.0" mnemonicParsing="false" onAction="#btnAddAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #7a1811;" text="ADD" textFill="WHITE">
@@ -66,5 +66,6 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Button>
+      <TextField fx:id="txtStatus" layoutX="657.0" layoutY="255.0" prefHeight="34.0" prefWidth="226.0" promptText="Status" style="-fx-background-color: #965a61;" />
    </children>
 </AnchorPane>
