@@ -16,7 +16,7 @@ public class EmployeeController {
     void btnClickOnAction(ActionEvent event) {
 
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(""))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/employeeInfo_form.fxml"))));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

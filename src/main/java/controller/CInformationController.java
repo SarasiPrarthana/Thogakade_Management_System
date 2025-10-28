@@ -12,17 +12,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.CustomerInfoDTO;
 
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class CInformationController implements Initializable {
 
     ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList(
-            new CustomerInfoDTO("C001","Mr","Danapala","1981-02-06",40000.0,"No.20 Walana","Panadura","Western","12500"),
-            new CustomerInfoDTO("C002","Mrs","Inoka","1999-05-30",35000.0,"No.406 Alubomulla","Panadura","Western","12500"),
-            new CustomerInfoDTO("C003","Mrs","Darshani","1978-07-01",80000.0,"No.3/A Gamunu Mawatha","Moratuwa","Western","12500"),
-            new CustomerInfoDTO("C004","Mr","Kamal","2000-02-14",48000.0,"No.200/A S.Mahinda Road","Bandaragama","Western","12500"),
-            new CustomerInfoDTO("C005","Mrs","Nimali","1995-12-09",52000.0,"No.22 Church Road","Kaluthara","Western","12500"),
-            new CustomerInfoDTO("C006","Mr","Dasun","1979-01-21",100000.0,"No.456 Kiriberiya","Panadura","Western","12500")
+            new CustomerInfoDTO("C001", "Mr", "Danapala", "1981-02-06", 40000.0, "No.20 Walana", "Panadura", "Western", "12500"),
+            new CustomerInfoDTO("C002", "Mrs", "Inoka", "1999-05-30", 35000.0, "No.406 Alubomulla", "Panadura", "Western", "12500"),
+            new CustomerInfoDTO("C003", "Mrs", "Darshani", "1978-07-01", 80000.0, "No.3/A Gamunu Mawatha", "Moratuwa", "Western", "12500"),
+            new CustomerInfoDTO("C004", "Mr", "Kamal", "2000-02-14", 48000.0, "No.200/A S.Mahinda Road", "Bandaragama", "Western", "12500"),
+            new CustomerInfoDTO("C005", "Mrs", "Nimali", "1995-12-09", 52000.0, "No.22 Church Road", "Kaluthara", "Western", "12500"),
+            new CustomerInfoDTO("C006", "Mr", "Dasun", "1979-01-21", 100000.0, "No.456 Kiriberiya", "Panadura", "Western", "12500")
     );
 
     @FXML
@@ -82,6 +83,37 @@ public class CInformationController implements Initializable {
     @FXML
     private TextField txtTitle;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+
+        txtTbl.setItems(customerInfoDTOS);
+
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                txtCustID.setText(newValue.getCustomerID());
+                txtTitle.setText(newValue.getTitle());
+                txtName.setText(newValue.getName());
+                txtDOB.setText(newValue.getDob());
+                txtSalary.setText(String.valueOf(newValue.getSalary()));
+                txtAddress.setText(newValue.getAddress());
+                txtCity.setText(newValue.getCity());
+                txtProvince.setText(newValue.getProvince());
+                txtPostalCode.setText(newValue.getPostalCode());
+            }
+        });
+
+
+    }
+
     @FXML
     void btnAddAction(ActionEvent event) {
 
@@ -95,7 +127,7 @@ public class CInformationController implements Initializable {
         String province = txtProvince.getText();
         String postalCode = txtPostalCode.getText();
 
-        CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(customerID,title,name,dob,salary,address,city,province,postalCode);
+        CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(customerID, title, name, dob, salary, address, city, province, postalCode);
         customerInfoDTOS.add(customerInfoDTO);
 
         txtTbl.refresh();
@@ -109,7 +141,33 @@ public class CInformationController implements Initializable {
         txtCity.setText("");
         txtProvince.setText("");
         txtPostalCode.setText("");
-    }
+
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+                String SQL = "Insert INTO Customer VALUES(?,?,?,?,?,?,?,?,?)";
+
+                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+                preparedStatement.setObject(1, customerID);
+                preparedStatement.setObject(2, title);
+                preparedStatement.setObject(3, name);
+                preparedStatement.setObject(4, dob);
+                preparedStatement.setObject(5, salary);
+                preparedStatement.setObject(6, address);
+                preparedStatement.setObject(7, city);
+                preparedStatement.setObject(8, province);
+                preparedStatement.setObject(9, postalCode);
+
+                preparedStatement.execute();
+                loadCustomerDetails();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+
+        }
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
@@ -117,6 +175,18 @@ public class CInformationController implements Initializable {
         CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
         customerInfoDTOS.remove(selectedCustomer);
         txtTbl.refresh();
+
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+                PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE customer_id = ?");
+
+                pstm.setObject(1, txtCustID.getText());
+                pstm.executeUpdate();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+    }
 
     }
 
@@ -154,34 +224,66 @@ public class CInformationController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+//        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+//        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+//        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+//        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+//        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+//        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+//        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+//
+//        txtTbl.setItems(customerInfoDTOS);
+//
+//        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null){
+//                txtCustID.setText(newValue.getCustomerID());
+//                txtTitle.setText(newValue.getTitle());
+//                txtName.setText(newValue.getName());
+//                txtDOB.setText(newValue.getDob());
+//                txtSalary.setText(String.valueOf(newValue.getSalary()));
+//                txtAddress.setText(newValue.getAddress());
+//                txtCity.setText(newValue.getCity());
+//                txtProvince.setText(newValue.getProvince());
+//                txtPostalCode.setText(newValue.getPostalCode());
+//            }
+//        });
+//
+//
+//    }
+    //load all rooms method
+    private void loadCustomerDetails() {
 
-        txtTbl.setItems(customerInfoDTOS);
+        customerInfoDTOS.clear();
 
-        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null){
-                txtCustID.setText(newValue.getCustomerID());
-                txtTitle.setText(newValue.getTitle());
-                txtName.setText(newValue.getName());
-                txtDOB.setText(newValue.getDob());
-                txtSalary.setText(String.valueOf(newValue.getSalary()));
-                txtAddress.setText(newValue.getAddress());
-                txtCity.setText(newValue.getCity());
-                txtProvince.setText(newValue.getProvince());
-                txtPostalCode.setText(newValue.getPostalCode());
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item" );
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(
+
+                        // column name pass
+                        resultSet.getString("customerID"),
+                        resultSet.getString("title"),
+                        resultSet.getString("name"),
+                        resultSet.getString("dob"),
+                        resultSet.getDouble("salary"),
+                        resultSet.getString("address"),
+                        resultSet.getString("city"),
+                        resultSet.getString("province"),
+                        resultSet.getString("postalCode")
+                );
+                System.out.println(customerInfoDTO);
+                customerInfoDTOS.add(customerInfoDTO);
             }
-        });
-
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        txtTbl.setItems(customerInfoDTOS);
     }
 }
