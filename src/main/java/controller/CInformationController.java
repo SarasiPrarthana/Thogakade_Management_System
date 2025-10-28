@@ -165,8 +165,6 @@ public class CInformationController implements Initializable {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
 
     @FXML
@@ -207,6 +205,40 @@ public class CInformationController implements Initializable {
 
         txtTbl.refresh();
 
+        String customerID = txtCustID.getText();
+        String title = txtTitle.getText();
+        String name = txtName.getText();
+        String dob = txtDOB.getText();
+        Double salary = Double.valueOf(txtSalary.getText());
+        String address = txtAddress.getText();
+        String city = txtCity.getText();
+        String province = txtProvince.getText();
+        String postalCode = txtPostalCode.getText();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "UPDATE Customer SET customerID = ?, title = ?, name = ?,dob = ?,salary = ?,address = ?,city = ?,province = ?,postalCode = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, customerID);
+            preparedStatement.setObject(2, title);
+            preparedStatement.setObject(3, name);
+            preparedStatement.setObject(4, dob);
+            preparedStatement.setObject(5, salary);
+            preparedStatement.setObject(6, address);
+            preparedStatement.setObject(7, city);
+            preparedStatement.setObject(8, province);
+            preparedStatement.setObject(9, postalCode);
+
+            preparedStatement.execute();
+            loadCustomerDetails();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -223,37 +255,7 @@ public class CInformationController implements Initializable {
         txtPostalCode.setText("");
 
     }
-
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-//        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-//        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-//        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-//        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-//        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-//        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-//
-//        txtTbl.setItems(customerInfoDTOS);
-//
-//        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null){
-//                txtCustID.setText(newValue.getCustomerID());
-//                txtTitle.setText(newValue.getTitle());
-//                txtName.setText(newValue.getName());
-//                txtDOB.setText(newValue.getDob());
-//                txtSalary.setText(String.valueOf(newValue.getSalary()));
-//                txtAddress.setText(newValue.getAddress());
-//                txtCity.setText(newValue.getCity());
-//                txtProvince.setText(newValue.getProvince());
-//                txtPostalCode.setText(newValue.getPostalCode());
-//            }
-//        });
-//
-//
-//    }
+    
     //load all rooms method
     private void loadCustomerDetails() {
 
