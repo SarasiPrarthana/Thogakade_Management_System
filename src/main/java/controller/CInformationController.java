@@ -17,14 +17,18 @@ import java.util.ResourceBundle;
 
 public class CInformationController implements Initializable {
 
-    ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList(
-            new CustomerInfoDTO("C001", "Mr", "Danapala", "1981-02-06", 40000.0, "No.20 Walana", "Panadura", "Western", "12500"),
-            new CustomerInfoDTO("C002", "Mrs", "Inoka", "1999-05-30", 35000.0, "No.406 Alubomulla", "Panadura", "Western", "12500"),
-            new CustomerInfoDTO("C003", "Mrs", "Darshani", "1978-07-01", 80000.0, "No.3/A Gamunu Mawatha", "Moratuwa", "Western", "12500"),
-            new CustomerInfoDTO("C004", "Mr", "Kamal", "2000-02-14", 48000.0, "No.200/A S.Mahinda Road", "Bandaragama", "Western", "12500"),
-            new CustomerInfoDTO("C005", "Mrs", "Nimali", "1995-12-09", 52000.0, "No.22 Church Road", "Kaluthara", "Western", "12500"),
-            new CustomerInfoDTO("C006", "Mr", "Dasun", "1979-01-21", 100000.0, "No.456 Kiriberiya", "Panadura", "Western", "12500")
-    );
+    ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList();
+//            new CustomerInfoDTO("C001", "Mr.", "Danapala", "1981-02-06", 40000, "No.20 Walana", "Panadura", "Western", "12500"),
+//            new CustomerInfoDTO("C002", "Ms.", "Samanthi", "1990-05-12", 55000, "No.15 Galle", "Galle", "Southern", "8000"),
+//            new CustomerInfoDTO("C003", "Mrs.", "Kumari", "1985-11-23", 72000, "No.5 Kandy", "Kandy", "Central", "20000"),
+//            new CustomerInfoDTO("C004", "Miss.", "Niluka", "1978-07-30", 95000, "No.8 Jaffna", "Jaffna", "Northern", "15000"),
+//            new CustomerInfoDTO("C005", "Mr.", "Perera", "1992-03-15", 48000, "No.12 Matara", "Matara", "Southern", "9000"),
+//            new CustomerInfoDTO("C006", "Ms.", "Lakshmi", "1988-09-09", 67000, "No.3 Negombo", "Negombo", "Western", "11000"),
+//            new CustomerInfoDTO("C007", "Mrs.", "Fernando", "1975-12-01", 83000, "No.18 Trincomalee", "Trincomalee", "Eastern", "13000"),
+//            new CustomerInfoDTO("C008", "Miss.", "Jayathilaka", "1983-06-21", 76000, "No.7 Anuradhapura", "Anuradhapura", "North Central", "14000"),
+//            new CustomerInfoDTO("C009", "Mr.", "Silva", "1995-04-10", 52000, "No.22 Kurunegala", "Kurunegala", "North Western", "10000"),
+//            new CustomerInfoDTO("C010", "Ms.", "Wijesinghe", "1980-08-18", 88000, "No.9 Badulla", "Badulla", "Uva", "16000"
+
 
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -85,15 +89,17 @@ public class CInformationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        colID.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("DateOfBirth"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        colCity.setCellValueFactory(new PropertyValueFactory<>("City"));
+        colProvince.setCellValueFactory(new PropertyValueFactory<>("Province"));
+        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
+
+        loadCustomerDetails();
 
         txtTbl.setItems(customerInfoDTOS);
 
@@ -161,12 +167,11 @@ public class CInformationController implements Initializable {
 
                 preparedStatement.execute();
                 loadCustomerDetails();
+                clearFields();
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
 
     @FXML
@@ -179,10 +184,12 @@ public class CInformationController implements Initializable {
             try {
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
 
-                PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE customer_id = ?");
+                PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
 
                 pstm.setObject(1, txtCustID.getText());
                 pstm.executeUpdate();
+                clearFields();
+                loadCustomerDetails();
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -207,6 +214,41 @@ public class CInformationController implements Initializable {
 
         txtTbl.refresh();
 
+        String customerID = txtCustID.getText();
+        String title = txtTitle.getText();
+        String name = txtName.getText();
+        String dob = txtDOB.getText();
+        Double salary = Double.valueOf(txtSalary.getText());
+        String address = txtAddress.getText();
+        String city = txtCity.getText();
+        String province = txtProvince.getText();
+        String postalCode = txtPostalCode.getText();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "UPDATE Customer SET WHERE CustomerID = ?, Title = ?, Name = ?,DateOfBirth = ?,Salary = ?,Address = ?,City = ?,Province = ?,PostalCode = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, customerID);
+            preparedStatement.setObject(2, title);
+            preparedStatement.setObject(3, name);
+            preparedStatement.setObject(4, dob);
+            preparedStatement.setObject(5, salary);
+            preparedStatement.setObject(6, address);
+            preparedStatement.setObject(7, city);
+            preparedStatement.setObject(8, province);
+            preparedStatement.setObject(9, postalCode);
+
+            preparedStatement.execute();
+            loadCustomerDetails();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -224,36 +266,6 @@ public class CInformationController implements Initializable {
 
     }
 
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-//        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-//        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
-//        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-//        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-//        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-//        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-//        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-//
-//        txtTbl.setItems(customerInfoDTOS);
-//
-//        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null){
-//                txtCustID.setText(newValue.getCustomerID());
-//                txtTitle.setText(newValue.getTitle());
-//                txtName.setText(newValue.getName());
-//                txtDOB.setText(newValue.getDob());
-//                txtSalary.setText(String.valueOf(newValue.getSalary()));
-//                txtAddress.setText(newValue.getAddress());
-//                txtCity.setText(newValue.getCity());
-//                txtProvince.setText(newValue.getProvince());
-//                txtPostalCode.setText(newValue.getPostalCode());
-//            }
-//        });
-//
-//
-//    }
     //load all rooms method
     private void loadCustomerDetails() {
 
@@ -261,22 +273,22 @@ public class CInformationController implements Initializable {
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM item" );
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer" );
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(
 
                         // column name pass
-                        resultSet.getString("customerID"),
-                        resultSet.getString("title"),
-                        resultSet.getString("name"),
-                        resultSet.getString("dob"),
-                        resultSet.getDouble("salary"),
-                        resultSet.getString("address"),
-                        resultSet.getString("city"),
-                        resultSet.getString("province"),
-                        resultSet.getString("postalCode")
+                        resultSet.getString("CustomerID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("DateOfBirth"),
+                        resultSet.getDouble("Salary"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("City"),
+                        resultSet.getString("Province"),
+                        resultSet.getString("PostalCode")
                 );
                 System.out.println(customerInfoDTO);
                 customerInfoDTOS.add(customerInfoDTO);
@@ -286,4 +298,16 @@ public class CInformationController implements Initializable {
         }
         txtTbl.setItems(customerInfoDTOS);
     }
+    public void clearFields(){
+        txtCustID.clear();
+        txtTitle.clear();
+        txtName.clear();
+        txtDOB.clear();
+        txtSalary.clear();
+        txtAddress.clear();
+        txtCity.clear();
+        txtProvince.clear();
+        txtPostalCode.clear();
+    }
+
 }

@@ -1,18 +1,36 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.dto.EmployeeInfoDTO;
+import model.dto.SupplierInfoDTO;
 
-public class EmployeeInfoController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EmployeeInfoController implements Initializable {
+
+    ObservableList<EmployeeInfoDTO> employeeInfoDTOS = FXCollections.observableArrayList(
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active")
+            );
 
     @FXML
     private TableColumn<?, ?> colAddress;
 
     @FXML
-    private TableColumn<?, ?> colCity;
+    private TableColumn<?, ?> colContactNumber;
 
     @FXML
     private TableColumn<?, ?> colDOB;
@@ -21,68 +39,164 @@ public class EmployeeInfoController {
     private TableColumn<?, ?> colID;
 
     @FXML
+    private TableColumn<?, ?> colJoinedDate;
+
+    @FXML
+    private TableColumn<?, ?> colNIC;
+
+    @FXML
     private TableColumn<?, ?> colName;
 
     @FXML
-    private TableColumn<?, ?> colPostalCode;
+    private TableColumn<?, ?> colPosition;
 
     @FXML
-    private TableColumn<?, ?> colProvince;
+    private TableColumn<?, ?> colStatus;
 
     @FXML
     private TableColumn<?, ?> colSalary;
 
     @FXML
-    private TableColumn<?, ?> colTitle;
-
-    @FXML
     private TextField txtAddress;
 
     @FXML
-    private TextField txtCity;
-
-    @FXML
-    private TextField txtCustID;
+    private TextField txtContactNumber;
 
     @FXML
     private TextField txtDOB;
 
     @FXML
+    private TextField txtEmployeeID;
+
+    @FXML
+    private TextField txtJoinedDate;
+
+    @FXML
+    private TextField txtNIC;
+
+    @FXML
     private TextField txtName;
 
     @FXML
-    private TextField txtPostalCode;
-
-    @FXML
-    private TextField txtProvince;
+    private TextField txtPosition;
 
     @FXML
     private TextField txtSalary;
 
     @FXML
-    private TableView<?> txtTbl;
+    private TextField txtStatus;
 
     @FXML
-    private TextField txtTitle;
+    private TableView<EmployeeInfoDTO> txtTbl;
 
     @FXML
     void btnAddAction(ActionEvent event) {
+
+        String EmployeeID = txtEmployeeID.getText();
+        String name = txtName.getText();
+        String nic = txtNIC.getText();
+        String dob = txtDOB.getText();
+        String position = txtPosition.getText();
+        Double salary = Double.valueOf(txtSalary.getText());
+        String contactNumber = txtContactNumber.getText();
+        String address = txtAddress.getText();
+        String joinedDate = txtJoinedDate.getText();
+        String status = txtStatus.getText();
+
+
+        EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
+        employeeInfoDTOS.add(employeeInfoDTO);
+
+        txtTbl.refresh();
+
+        txtEmployeeID.setText("");
+        txtName.setText("");
+        txtNIC.setText("");
+        txtDOB.setText("");
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContactNumber.setText("");
+        txtAddress.setText("");
+        txtJoinedDate.setText("");
+        txtStatus.setText("");
 
     }
 
     @FXML
     void btnClearAction(ActionEvent event) {
 
+        txtEmployeeID.setText("");
+        txtName.setText("");
+        txtNIC.setText("");
+        txtDOB.setText("");
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContactNumber.setText("");
+        txtAddress.setText("");
+        txtJoinedDate.setText("");
+        txtStatus.setText("");
+
     }
 
     @FXML
     void btnDeleteAction(ActionEvent event) {
+
+        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
+        employeeInfoDTOS.remove(selectedEmployee);
+        txtTbl.refresh();
 
     }
 
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
+        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
+
+        selectedEmployee.setEmployeeID(txtEmployeeID.getText());
+        selectedEmployee.setName(txtName.getText());
+        selectedEmployee.setNic(txtNIC.getText());
+        selectedEmployee.setDob(txtDOB.getText());
+        selectedEmployee.setPosition(txtPosition.getText());
+        selectedEmployee.setSalary(Double.valueOf(txtSalary.getText()));
+        selectedEmployee.setContactNumber(txtContactNumber.getText());
+        selectedEmployee.setAddress(txtAddress.getText());
+        selectedEmployee.setJoinedDate(txtJoinedDate.getText());
+        selectedEmployee.setStatus(txtStatus.getText());
+
+        txtTbl.refresh();
+
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        txtTbl.setItems(employeeInfoDTOS);
+
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                txtEmployeeID.setText(newValue.getEmployeeID());
+                txtName.setText(newValue.getName());
+                txtNIC.setText(newValue.getNic());
+                txtDOB.setText(newValue.getDob());
+                txtPosition.setText(newValue.getPosition());
+                txtSalary.setText(String.valueOf(newValue.getSalary()));
+                txtContactNumber.setText(newValue.getContactNumber());
+                txtAddress.setText(newValue.getAddress());
+                txtJoinedDate.setText(newValue.getJoinedDate());
+                txtStatus.setText(newValue.getStatus());
+            }
+        });
+
+    }
 }
