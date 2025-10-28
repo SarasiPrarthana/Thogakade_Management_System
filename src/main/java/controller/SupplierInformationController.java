@@ -9,8 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.dto.CustomerInfoDTO;
-import model.dto.ItemInfoDTO;
 import model.dto.SupplierInfoDTO;
 
 import java.net.URL;
@@ -20,12 +18,12 @@ public class SupplierInformationController implements Initializable {
 
     ObservableList<SupplierInfoDTO> supplierInfoDTOS = FXCollections.observableArrayList(
             new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com")
+            new SupplierInfoDTO("S002","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+            new SupplierInfoDTO("S003","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+            new SupplierInfoDTO("S004","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+            new SupplierInfoDTO("S005","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+            new SupplierInfoDTO("S006","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+            new SupplierInfoDTO("S007","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com")
     );
 
     @FXML
