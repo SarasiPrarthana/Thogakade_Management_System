@@ -125,6 +125,17 @@ public class EmployeeInfoController implements Initializable {
     @FXML
     void btnClearAction(ActionEvent event) {
 
+        txtEmployeeID.setText("");
+        txtName.setText("");
+        txtNIC.setText("");
+        txtDOB.setText("");
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContactNumber.setText("");
+        txtAddress.setText("");
+        txtJoinedDate.setText("");
+        txtStatus.setText("");
+
     }
 
     @FXML
