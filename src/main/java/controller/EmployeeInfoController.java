@@ -150,6 +150,21 @@ public class EmployeeInfoController implements Initializable {
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
+        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
+
+        selectedEmployee.setEmployeeID(txtEmployeeID.getText());
+        selectedEmployee.setName(txtName.getText());
+        selectedEmployee.setNic(txtNIC.getText());
+        selectedEmployee.setDob(txtDOB.getText());
+        selectedEmployee.setPosition(txtPosition.getText());
+        selectedEmployee.setSalary(Double.valueOf(txtSalary.getText()));
+        selectedEmployee.setContactNumber(txtContactNumber.getText());
+        selectedEmployee.setAddress(txtAddress.getText());
+        selectedEmployee.setJoinedDate(txtJoinedDate.getText());
+        selectedEmployee.setStatus(txtStatus.getText());
+
+        txtTbl.refresh();
+
     }
 
     @Override
