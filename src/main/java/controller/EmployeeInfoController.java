@@ -141,6 +141,10 @@ public class EmployeeInfoController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
+        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
+        employeeInfoDTOS.remove(selectedEmployee);
+        txtTbl.refresh();
+
     }
 
     @FXML
