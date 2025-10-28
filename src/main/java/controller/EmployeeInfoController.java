@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.EmployeeInfoDTO;
+import model.dto.SupplierInfoDTO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -90,6 +91,34 @@ public class EmployeeInfoController implements Initializable {
 
     @FXML
     void btnAddAction(ActionEvent event) {
+
+        String EmployeeID = txtEmployeeID.getText();
+        String name = txtName.getText();
+        String nic = txtNIC.getText();
+        String dob = txtDOB.getText();
+        String position = txtPosition.getText();
+        Double salary = Double.valueOf(txtSalary.getText());
+        String contactNumber = txtContactNumber.getText();
+        String address = txtAddress.getText();
+        String joinedDate = txtJoinedDate.getText();
+        String status = txtStatus.getText();
+
+
+        EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
+        employeeInfoDTOS.add(employeeInfoDTO);
+
+        txtTbl.refresh();
+
+        txtEmployeeID.setText("");
+        txtName.setText("");
+        txtNIC.setText("");
+        txtDOB.setText("");
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContactNumber.setText("");
+        txtAddress.setText("");
+        txtJoinedDate.setText("");
+        txtStatus.setText("");
 
     }
 
