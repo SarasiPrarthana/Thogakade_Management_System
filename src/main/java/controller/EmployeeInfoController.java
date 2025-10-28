@@ -1,12 +1,29 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.dto.EmployeeInfoDTO;
 
-public class EmployeeInfoController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class EmployeeInfoController implements Initializable {
+
+    ObservableList<EmployeeInfoDTO> employeeInfoDTOS = FXCollections.observableArrayList(
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
+            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active")
+            );
 
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -33,7 +50,7 @@ public class EmployeeInfoController {
     private TableColumn<?, ?> colPosition;
 
     @FXML
-    private TableColumn<?, ?> colPostalCcolStatusode1;
+    private TableColumn<?, ?> colStatus;
 
     @FXML
     private TableColumn<?, ?> colSalary;
@@ -69,7 +86,7 @@ public class EmployeeInfoController {
     private TextField txtStatus;
 
     @FXML
-    private TableView<?> txtTbl;
+    private TableView<EmployeeInfoDTO> txtTbl;
 
     @FXML
     void btnAddAction(ActionEvent event) {
@@ -91,4 +108,36 @@ public class EmployeeInfoController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colNIC.setCellValueFactory(new PropertyValueFactory<>("nic"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colContactNumber.setCellValueFactory(new PropertyValueFactory<>("contactNumber"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        txtTbl.setItems(employeeInfoDTOS);
+
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                txtEmployeeID.setText(newValue.getEmployeeID());
+                txtName.setText(newValue.getName());
+                txtNIC.setText(newValue.getNic());
+                txtDOB.setText(newValue.getDob());
+                txtPosition.setText(newValue.getPosition());
+                txtSalary.setText(String.valueOf(newValue.getSalary()));
+                txtContactNumber.setText(newValue.getContactNumber());
+                txtAddress.setText(newValue.getAddress());
+                txtJoinedDate.setText(newValue.getJoinedDate());
+                txtStatus.setText(newValue.getStatus());
+            }
+        });
+
+    }
 }

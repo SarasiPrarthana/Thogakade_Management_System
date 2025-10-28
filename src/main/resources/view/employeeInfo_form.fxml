@@ -43,7 +43,7 @@
             <TableColumn fx:id="colContactNumber" prefWidth="110.39996337890625" text="Contact Number" />
             <TableColumn fx:id="colAddress" minWidth="4.800048828125" prefWidth="73.60003662109375" text="Address" />
             <TableColumn fx:id="colJoinedDate" minWidth="0.0" prefWidth="86.4000244140625" text="Joined Date" />
-            <TableColumn fx:id="colPostalCcolStatusode1" prefWidth="67.2000732421875" text="Status" />
+            <TableColumn fx:id="colStatus" prefWidth="67.2000732421875" text="Status" />
          </columns>
       </TableView>
       <Button layoutX="53.0" layoutY="329.0" mnemonicParsing="false" onAction="#btnAddAction" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: #7a1811;" text="ADD" textFill="WHITE">
