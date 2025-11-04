@@ -20,14 +20,13 @@ import java.util.ResourceBundle;
 
 public class EmployeeInfoController implements Initializable {
 
-    ObservableList<EmployeeInfoDTO> employeeInfoDTOS = FXCollections.observableArrayList(
+    ObservableList<EmployeeInfoDTO> employeeInfoDTOS = FXCollections.observableArrayList();
 //            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
 //            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
 //            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
 //            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
 //            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
 //            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active")
-            );
 
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -106,6 +105,8 @@ public class EmployeeInfoController implements Initializable {
         colJoinedDate.setCellValueFactory(new PropertyValueFactory<>("joinedDate"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        loadEmployeeDetails();
+
         txtTbl.setItems(employeeInfoDTOS);
 
         txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -138,7 +139,6 @@ public class EmployeeInfoController implements Initializable {
         String address = txtAddress.getText();
         String joinedDate = txtJoinedDate.getText();
         String status = txtStatus.getText();
-
 
         EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
         employeeInfoDTOS.add(employeeInfoDTO);

@@ -16,15 +16,14 @@ import java.util.ResourceBundle;
 
 public class ItemInformationController implements Initializable {
 
-    ObservableList<ItemInfoDTO> itemInfoDTOS = FXCollections.observableArrayList(
-            new ItemInfoDTO("1001","Red Rice 5kg","Groceries",40,1200.00),
-            new ItemInfoDTO("1002","Red Rice 5kg","Groceries",40,1200.00),
-            new ItemInfoDTO("1003","Red Rice 5kg","Groceries",40,1200.00),
-            new ItemInfoDTO("1004","Red Rice 5kg","Groceries",40,1200.00),
-            new ItemInfoDTO("1005","Red Rice 5kg","Groceries",40,1200.00),
-            new ItemInfoDTO("1006","Red Rice 5kg","Groceries",40,1200.00),
-            new ItemInfoDTO("1007","Red Rice 5kg","Groceries",40,1200.00)
-    );
+    ObservableList<ItemInfoDTO> itemInfoDTOS = FXCollections.observableArrayList();
+//            new ItemInfoDTO("1001","Red Rice 5kg","Groceries",40,1200.00),
+//            new ItemInfoDTO("1002","Red Rice 5kg","Groceries",40,1200.00),
+//            new ItemInfoDTO("1003","Red Rice 5kg","Groceries",40,1200.00),
+//            new ItemInfoDTO("1004","Red Rice 5kg","Groceries",40,1200.00),
+//            new ItemInfoDTO("1005","Red Rice 5kg","Groceries",40,1200.00),
+//            new ItemInfoDTO("1006","Red Rice 5kg","Groceries",40,1200.00),
+//            new ItemInfoDTO("1007","Red Rice 5kg","Groceries",40,1200.00)
 
     @FXML
     private TableColumn<?, ?> colCategory;
@@ -58,6 +57,29 @@ public class ItemInformationController implements Initializable {
 
     @FXML
     private TextField txtUnitPrice;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+
+        txtTbl.setItems(itemInfoDTOS);
+
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                txtItemCode.setText(newValue.getItemCode());
+                txtDescription.setText(newValue.getDescription());
+                txtCategory.setText(newValue.getCategory());
+                txtQtyOnHand.setText(String.valueOf(newValue.getQtyOnHand()));
+                txtUnitPrice.setText(String.valueOf(newValue.getUnitPrice()));
+            }
+
+        });
+
+    }
 
     @FXML
     void btnAddAction(ActionEvent event) {
@@ -113,29 +135,6 @@ public class ItemInformationController implements Initializable {
         selectedItem.setUnitPrice(Double.parseDouble(txtUnitPrice.getText()));
 
         txtTbl.refresh();
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-
-        txtTbl.setItems(itemInfoDTOS);
-
-        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null){
-                txtItemCode.setText(newValue.getItemCode());
-                txtDescription.setText(newValue.getDescription());
-                txtCategory.setText(newValue.getCategory());
-                txtQtyOnHand.setText(String.valueOf(newValue.getQtyOnHand()));
-                txtUnitPrice.setText(String.valueOf(newValue.getUnitPrice()));
-            }
-
-        });
 
     }
 }
