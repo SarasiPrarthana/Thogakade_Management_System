@@ -9,13 +9,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.dto.CustomerInfoDTO;
 import model.dto.ItemInfoDTO;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class ItemInformationController implements Initializable {
@@ -144,6 +142,18 @@ public class ItemInformationController implements Initializable {
         itemInfoDTOS.remove(selectedItem);
         txtTbl.refresh();
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
+
+            pstm.setObject(1, txtItemCode.getText());
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
@@ -159,5 +169,64 @@ public class ItemInformationController implements Initializable {
 
         txtTbl.refresh();
 
+        String itemCode = txtItemCode.getText();
+        String description = txtDescription.getText();
+        String category = txtCategory.getText();
+        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
+        Double unitPrice = Double.valueOf(txtUnitPrice.getText());
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "UPDATE Customer SET WHERE ItemCode = ?, Description = ?, Category = ?,QtyOnHand = ?,UnitPrice = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, itemCode);
+            preparedStatement.setObject(2, description);
+            preparedStatement.setObject(3, category);
+            preparedStatement.setObject(4, qtyOnHand);
+            preparedStatement.setObject(5, unitPrice);
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loadItemDetails() {
+
+        itemInfoDTOS.clear();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer" );
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                ItemInfoDTO itemInfoDTO = new ItemInfoDTO(
+
+                        // column name pass
+                        resultSet.getString("ItemCode"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Category"),
+                        resultSet.getInt("QtyOnHand"),
+                        resultSet.getDouble("UnitPrice")
+                );
+                System.out.println(itemInfoDTO);
+                itemInfoDTOS.add(itemInfoDTO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        txtTbl.setItems(itemInfoDTOS);
+    }
+    public void clearFields(){
+        txtItemCode.clear();
+        txtDescription.clear();
+        txtCategory.clear();
+        txtQtyOnHand.clear();
+        txtUnitPrice.clear();
     }
 }
