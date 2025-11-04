@@ -12,6 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.ItemInfoDTO;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ItemInformationController implements Initializable {
@@ -78,7 +82,6 @@ public class ItemInformationController implements Initializable {
             }
 
         });
-
     }
 
     @FXML
@@ -100,6 +103,26 @@ public class ItemInformationController implements Initializable {
         txtCategory.setText("");
         txtQtyOnHand.setText("");
         txtUnitPrice.setText("");
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "Insert INTO Item VALUES(?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, itemCode);
+            preparedStatement.setObject(2, description);
+            preparedStatement.setObject(3, category);
+            preparedStatement.setObject(4, qtyOnHand);
+            preparedStatement.setObject(5, unitPrice);
+
+            preparedStatement.execute();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
