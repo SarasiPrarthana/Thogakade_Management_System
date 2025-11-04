@@ -130,23 +130,10 @@ public class CInformationFormController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
-        CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
-        customerInfoDTOS.remove(selectedCustomer);
-        txtTbl.refresh();
-
-            try {
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-                PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
-
-                pstm.setObject(1, txtCustID.getText());
-                pstm.executeUpdate();
-                clearFields();
-                loadCustomerDetails();
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-    }
+        CustomerController customerController = new CustomerController();
+        customerController.deleteCustomerDetails(txtCustID.getText());
+        clearFields();
+        loadCustomerDetails();
 
     }
 
