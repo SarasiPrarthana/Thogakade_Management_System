@@ -15,20 +15,11 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class CInformationController implements Initializable {
+public class CInformationFormController implements Initializable {
 
     ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList();
-//            new CustomerInfoDTO("C001", "Mr.", "Danapala", "1981-02-06", 40000, "No.20 Walana", "Panadura", "Western", "12500"),
-//            new CustomerInfoDTO("C002", "Ms.", "Samanthi", "1990-05-12", 55000, "No.15 Galle", "Galle", "Southern", "8000"),
-//            new CustomerInfoDTO("C003", "Mrs.", "Kumari", "1985-11-23", 72000, "No.5 Kandy", "Kandy", "Central", "20000"),
-//            new CustomerInfoDTO("C004", "Miss.", "Niluka", "1978-07-30", 95000, "No.8 Jaffna", "Jaffna", "Northern", "15000"),
-//            new CustomerInfoDTO("C005", "Mr.", "Perera", "1992-03-15", 48000, "No.12 Matara", "Matara", "Southern", "9000"),
-//            new CustomerInfoDTO("C006", "Ms.", "Lakshmi", "1988-09-09", 67000, "No.3 Negombo", "Negombo", "Western", "11000"),
-//            new CustomerInfoDTO("C007", "Mrs.", "Fernando", "1975-12-01", 83000, "No.18 Trincomalee", "Trincomalee", "Eastern", "13000"),
-//            new CustomerInfoDTO("C008", "Miss.", "Jayathilaka", "1983-06-21", 76000, "No.7 Anuradhapura", "Anuradhapura", "North Central", "14000"),
-//            new CustomerInfoDTO("C009", "Mr.", "Silva", "1995-04-10", 52000, "No.22 Kurunegala", "Kurunegala", "North Western", "10000"),
-//            new CustomerInfoDTO("C010", "Ms.", "Wijesinghe", "1980-08-18", 88000, "No.9 Badulla", "Badulla", "Uva", "16000"
 
+    CustomerController customerController  = new CustomerController();
 
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -146,30 +137,11 @@ public class CInformationController implements Initializable {
         txtProvince.setText("");
         txtPostalCode.setText("");
 
-            try {
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+        customerController.addCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
 
-                String SQL = "Insert INTO Customer VALUES(?,?,?,?,?,?,?,?,?)";
+        loadCustomerDetails();
+        clearFields();
 
-                PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-
-                preparedStatement.setObject(1, customerID);
-                preparedStatement.setObject(2, title);
-                preparedStatement.setObject(3, name);
-                preparedStatement.setObject(4, dob);
-                preparedStatement.setObject(5, salary);
-                preparedStatement.setObject(6, address);
-                preparedStatement.setObject(7, city);
-                preparedStatement.setObject(8, province);
-                preparedStatement.setObject(9, postalCode);
-
-                preparedStatement.execute();
-                loadCustomerDetails();
-                clearFields();
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
 
     @FXML
