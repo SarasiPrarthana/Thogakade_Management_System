@@ -226,6 +226,41 @@ public class SupplierInformationController implements Initializable {
         selectedSupplier.setEmail(txtEmail.getText());
 
         txtTbl.refresh();
+
+        String supplierID = txtSupplierID.getText();
+        String name = txtName.getText();
+        String companyName = txtCompanyName.getText();
+        String address = txtAddress.getText();
+        String city = txtCity.getText();
+        String province = txtProvince.getText();
+        String postalCode = txtPostalCode.getText();
+        String phone = txtPhone.getText();
+        String email = txtEmail.getText();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "UPDATE Supplier SET WHERE supplierID = ?, name = ?, companyName = ?,address = ?,city = ?,province = ?,postalCode = ?,phone = ?,email = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, supplierID);
+            preparedStatement.setObject(2, name);
+            preparedStatement.setObject(3, companyName);
+            preparedStatement.setObject(4, address);
+            preparedStatement.setObject(5, city);
+            preparedStatement.setObject(6, province);
+            preparedStatement.setObject(7, postalCode);
+            preparedStatement.setObject(8, phone);
+            preparedStatement.setObject(9, email);
+
+            preparedStatement.execute();
+            loadSupplierDetails();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //load all rooms method
