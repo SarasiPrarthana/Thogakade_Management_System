@@ -140,55 +140,34 @@ public class CInformationFormController implements Initializable {
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
-        CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
-
-        selectedCustomer.setCustomerID(txtCustID.getText());
-        selectedCustomer.setTitle(txtTitle.getText());
-        selectedCustomer.setName(txtName.getText());
-        selectedCustomer.setDob(txtDOB.getText());
-        selectedCustomer.setSalary(Double.parseDouble(txtSalary.getText()));
-        selectedCustomer.setAddress(txtAddress.getText());
-        selectedCustomer.setCity(txtCity.getText());
-        selectedCustomer.setProvince(txtProvince.getText());
-        selectedCustomer.setPostalCode(txtPostalCode.getText());
-
-        txtTbl.refresh();
+//        CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
+//
+//        selectedCustomer.setCustomerID(txtCustID.getText());
+//        selectedCustomer.setTitle(txtTitle.getText());
+//        selectedCustomer.setName(txtName.getText());
+//        selectedCustomer.setDob(txtDOB.getText());
+//        selectedCustomer.setSalary(Double.parseDouble(txtSalary.getText()));
+//        selectedCustomer.setAddress(txtAddress.getText());
+//        selectedCustomer.setCity(txtCity.getText());
+//        selectedCustomer.setProvince(txtProvince.getText());
+//        selectedCustomer.setPostalCode(txtPostalCode.getText());
+//
+//        txtTbl.refresh();
 
         String customerID = txtCustID.getText();
         String title = txtTitle.getText();
         String name = txtName.getText();
         String dob = txtDOB.getText();
-        Double salary = Double.valueOf(txtSalary.getText());
+        double salary = Double.parseDouble(txtSalary.getText());
         String address = txtAddress.getText();
         String city = txtCity.getText();
         String province = txtProvince.getText();
         String postalCode = txtPostalCode.getText();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-            String SQL = "UPDATE Customer SET WHERE CustomerID = ?, Title = ?, Name = ?,DateOfBirth = ?,Salary = ?,Address = ?,City = ?,Province = ?,PostalCode = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-
-            preparedStatement.setObject(1, customerID);
-            preparedStatement.setObject(2, title);
-            preparedStatement.setObject(3, name);
-            preparedStatement.setObject(4, dob);
-            preparedStatement.setObject(5, salary);
-            preparedStatement.setObject(6, address);
-            preparedStatement.setObject(7, city);
-            preparedStatement.setObject(8, province);
-            preparedStatement.setObject(9, postalCode);
-
-            preparedStatement.execute();
-            loadCustomerDetails();
-            clearFields();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        CustomerController customerController  = new CustomerController();
+        customerController.updateCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
+        loadCustomerDetails();
+        clearFields();
     }
 
     @FXML
