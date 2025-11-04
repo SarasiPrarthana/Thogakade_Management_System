@@ -19,8 +19,6 @@ public class CInformationFormController implements Initializable {
 
     ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList();
 
-    CustomerController customerController  = new CustomerController();
-
     @FXML
     private TableColumn<?, ?> colAddress;
 
@@ -116,29 +114,14 @@ public class CInformationFormController implements Initializable {
         String title = txtTitle.getText();
         String name = txtName.getText();
         String dob = txtDOB.getText();
-        Double salary = Double.valueOf(txtSalary.getText());
+        double salary = Double.parseDouble(txtSalary.getText());
         String address = txtAddress.getText();
         String city = txtCity.getText();
         String province = txtProvince.getText();
         String postalCode = txtPostalCode.getText();
 
-        CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(customerID, title, name, dob, salary, address, city, province, postalCode);
-        customerInfoDTOS.add(customerInfoDTO);
-
-        txtTbl.refresh();
-
-        txtCustID.setText("");
-        txtTitle.setText("");
-        txtName.setText("");
-        txtDOB.setText("");
-        txtSalary.setText("");
-        txtAddress.setText("");
-        txtCity.setText("");
-        txtProvince.setText("");
-        txtPostalCode.setText("");
-
+        CustomerController customerController  = new CustomerController();
         customerController.addCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
-
         loadCustomerDetails();
         clearFields();
 

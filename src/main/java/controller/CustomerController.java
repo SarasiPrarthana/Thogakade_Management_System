@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class CustomerController {
 
-    public void addCustomerDetails(String customerID, String title, String name,String dob,Double salary,String address,String city,String province,String postalCode){
+    public void addCustomerDetails(String customerID, String title, String name,String dob,double salary,String address,String city,String province,String postalCode){
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
 
