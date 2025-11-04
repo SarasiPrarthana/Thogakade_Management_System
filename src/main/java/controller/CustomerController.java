@@ -1,5 +1,7 @@
 package controller;
 
+import db.DBConnection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +11,7 @@ public class CustomerController {
 
     public void addCustomerDetails(String customerID, String title, String name,String dob,double salary,String address,String city,String province,String postalCode){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             String SQL = "Insert INTO Customer VALUES(?,?,?,?,?,?,?,?,?)";
 
@@ -33,7 +35,7 @@ public class CustomerController {
     }
     public void deleteCustomerDetails(String customerId){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
 
             PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
 
@@ -47,9 +49,8 @@ public class CustomerController {
 
     public void updateCustomerDetails(String customerID,String title,String name,String dob,double salary,String address,String city,String province,String postalCode){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-            String SQL = "UPDATE Customer SET WHERE CustomerID = ?, Title = ?, Name = ?,DateOfBirth = ?,Salary = ?,Address = ?,City = ?,Province = ?,PostalCode = ?";
+            Connection connection = DBConnection.getInstance().getConnection();
+            String SQL = "UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 

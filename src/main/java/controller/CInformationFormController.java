@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 
 public class CInformationFormController implements Initializable {
 
+    CustomerService customerService = new CustomerController();
+
     ObservableList<CustomerInfoDTO> customerInfoDTOS = FXCollections.observableArrayList();
 
     @FXML
@@ -78,6 +80,7 @@ public class CInformationFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         colID.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
         colTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -94,6 +97,7 @@ public class CInformationFormController implements Initializable {
 
         txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null){
+//                setSelectedValue(newValue);
                 txtCustID.setText(newValue.getCustomerID());
                 txtTitle.setText(newValue.getTitle());
                 txtName.setText(newValue.getName());
@@ -120,8 +124,8 @@ public class CInformationFormController implements Initializable {
         String province = txtProvince.getText();
         String postalCode = txtPostalCode.getText();
 
-        CustomerController customerController  = new CustomerController();
-        customerController.addCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
+//        CustomerController customerController  = new CustomerController();
+        customerService.addCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
         loadCustomerDetails();
         clearFields();
 
@@ -130,8 +134,8 @@ public class CInformationFormController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
-        CustomerController customerController = new CustomerController();
-        customerController.deleteCustomerDetails(txtCustID.getText());
+//        CustomerController customerController = new CustomerController();
+        customerService.deleteCustomerDetails(txtCustID.getText());
         clearFields();
         loadCustomerDetails();
 
@@ -164,8 +168,8 @@ public class CInformationFormController implements Initializable {
         String province = txtProvince.getText();
         String postalCode = txtPostalCode.getText();
 
-        CustomerController customerController  = new CustomerController();
-        customerController.updateCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
+//        CustomerController customerController  = new CustomerController();
+        customerService.updateCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
         loadCustomerDetails();
         clearFields();
     }
