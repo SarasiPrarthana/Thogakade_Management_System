@@ -116,8 +116,6 @@ public class CInformationController implements Initializable {
                 txtPostalCode.setText(newValue.getPostalCode());
             }
         });
-
-
     }
 
     @FXML
