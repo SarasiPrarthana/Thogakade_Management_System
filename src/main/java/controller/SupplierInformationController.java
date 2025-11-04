@@ -16,15 +16,14 @@ import java.util.ResourceBundle;
 
 public class SupplierInformationController implements Initializable {
 
-    ObservableList<SupplierInfoDTO> supplierInfoDTOS = FXCollections.observableArrayList(
-            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S002","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S003","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S004","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S005","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S006","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
-            new SupplierInfoDTO("S007","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com")
-    );
+    ObservableList<SupplierInfoDTO> supplierInfoDTOS = FXCollections.observableArrayList();
+//            new SupplierInfoDTO("S001","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+//            new SupplierInfoDTO("S002","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+//            new SupplierInfoDTO("S003","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+//            new SupplierInfoDTO("S004","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+//            new SupplierInfoDTO("S005","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+//            new SupplierInfoDTO("S006","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com"),
+//            new SupplierInfoDTO("S007","Fernando","Agro Foods Pvt Ltd","No.45 Main Street","Matara","Southern","81000","0712345678","agrofoods@gmail.com")
 
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -82,6 +81,36 @@ public class SupplierInformationController implements Initializable {
 
     @FXML
     private TableView<SupplierInfoDTO> txtTbl;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colSupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colCompanyName.setCellValueFactory(new PropertyValueFactory<>("CompanyName"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        txtTbl.setItems(supplierInfoDTOS);
+
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null){
+                txtSupplierID.setText(newValue.getSupplierID());
+                txtName.setText(newValue.getName());
+                txtCompanyName.setText(newValue.getCompanyName());
+                txtAddress.setText(newValue.getAddress());
+                txtCity.setText(newValue.getCity());
+                txtProvince.setText(newValue.getProvince());
+                txtPostalCode.setText(newValue.getPostalCode());
+                txtPhone.setText(newValue.getPhone());
+                txtEmail.setText(newValue.getEmail());
+            }
+        });
+    }
 
     @FXML
     void btnAddAction(ActionEvent event) {
@@ -156,37 +185,4 @@ public class SupplierInformationController implements Initializable {
 
 
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        colSupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colCompanyName.setCellValueFactory(new PropertyValueFactory<>("CompanyName"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
-        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        txtTbl.setItems(supplierInfoDTOS);
-
-        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null){
-                txtSupplierID.setText(newValue.getSupplierID());
-                txtName.setText(newValue.getName());
-                txtCompanyName.setText(newValue.getCompanyName());
-                txtAddress.setText(newValue.getAddress());
-                txtCity.setText(newValue.getCity());
-                txtProvince.setText(newValue.getProvince());
-                txtPostalCode.setText(newValue.getPostalCode());
-                txtPhone.setText(newValue.getPhone());
-                txtEmail.setText(newValue.getEmail());
-            }
-        });
-
-
-    }
-
 }
