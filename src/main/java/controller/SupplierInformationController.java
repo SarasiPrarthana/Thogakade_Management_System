@@ -9,9 +9,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.dto.CustomerInfoDTO;
 import model.dto.SupplierInfoDTO;
 
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class SupplierInformationController implements Initializable {
@@ -140,6 +142,32 @@ public class SupplierInformationController implements Initializable {
         txtPostalCode.setText("");
         txtPhone.setText("");
         txtEmail.setText("");
+
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "Insert INTO Supplier VALUES(?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, supplierID);
+            preparedStatement.setObject(2, name);
+            preparedStatement.setObject(3, companyName);
+            preparedStatement.setObject(4, address);
+            preparedStatement.setObject(5, city);
+            preparedStatement.setObject(6, province);
+            preparedStatement.setObject(7, postalCode);
+            preparedStatement.setObject(8, phone);
+            preparedStatement.setObject(9, email);
+
+            preparedStatement.execute();
+            loadSupplierDetails();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -182,7 +210,49 @@ public class SupplierInformationController implements Initializable {
         selectedSupplier.setEmail(txtEmail.getText());
 
         txtTbl.refresh();
+    }
 
+    //load all rooms method
+    private void loadSupplierDetails() {
 
+        supplierInfoDTOS.clear();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Supplier" );
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                SupplierInfoDTO supplierInfoDTO = new SupplierInfoDTO(
+
+                        // column name pass
+                        resultSet.getString("supplierID"),
+                        resultSet.getString("name"),
+                        resultSet.getString("companyName"),
+                        resultSet.getString("address"),
+                        resultSet.getString("city"),
+                        resultSet.getString("province"),
+                        resultSet.getString("postalCode"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("email")
+                );
+                System.out.println(supplierInfoDTO);
+                supplierInfoDTOS.add(supplierInfoDTO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        txtTbl.setItems(supplierInfoDTOS);
+    }
+    public void clearFields(){
+        txtSupplierID.clear();
+        txtName.clear();
+        txtCompanyName.clear();
+        txtAddress.clear();
+        txtCity.clear();
+        txtProvince.clear();
+        txtPostalCode.clear();
+        txtPhone.clear();
+        txtEmail.clear();
     }
 }
