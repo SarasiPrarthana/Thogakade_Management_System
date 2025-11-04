@@ -68,6 +68,8 @@ public class ItemInformationController implements Initializable {
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
 
+        loadItemDetails();
+
         txtTbl.setItems(itemInfoDTOS);
 
         txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -78,7 +80,6 @@ public class ItemInformationController implements Initializable {
                 txtQtyOnHand.setText(String.valueOf(newValue.getQtyOnHand()));
                 txtUnitPrice.setText(String.valueOf(newValue.getUnitPrice()));
             }
-
         });
     }
 
@@ -116,6 +117,8 @@ public class ItemInformationController implements Initializable {
             preparedStatement.setObject(5, unitPrice);
 
             preparedStatement.execute();
+            loadItemDetails();
+            clearFields();
 
 
         } catch (SQLException e) {
@@ -149,11 +152,12 @@ public class ItemInformationController implements Initializable {
 
             pstm.setObject(1, txtItemCode.getText());
             pstm.executeUpdate();
+            clearFields();
+            loadItemDetails();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @FXML
@@ -189,6 +193,8 @@ public class ItemInformationController implements Initializable {
             preparedStatement.setObject(5, unitPrice);
 
             preparedStatement.execute();
+            loadItemDetails();
+            clearFields();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -201,7 +207,7 @@ public class ItemInformationController implements Initializable {
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer" );
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Item" );
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
