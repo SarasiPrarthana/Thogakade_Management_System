@@ -9,10 +9,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.dto.CustomerInfoDTO;
 import model.dto.EmployeeInfoDTO;
 import model.dto.SupplierInfoDTO;
 
+import javax.naming.Name;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class EmployeeInfoController implements Initializable {
@@ -153,6 +156,31 @@ public class EmployeeInfoController implements Initializable {
         txtJoinedDate.setText("");
         txtStatus.setText("");
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            String SQL = "Insert INTO Employee VALUES(?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, EmployeeID);
+            preparedStatement.setObject(2, name);
+            preparedStatement.setObject(3, nic);
+            preparedStatement.setObject(4, dob);
+            preparedStatement.setObject(5, position);
+            preparedStatement.setObject(6, salary);
+            preparedStatement.setObject(7, contactNumber);
+            preparedStatement.setObject(8, address);
+            preparedStatement.setObject(9, joinedDate);
+            preparedStatement.setObject(10, status);
+
+            preparedStatement.execute();
+            loadEmployeeDetails();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -198,5 +226,50 @@ public class EmployeeInfoController implements Initializable {
 
         txtTbl.refresh();
 
+    }
+
+    private void loadEmployeeDetails() {
+
+        employeeInfoDTOS.clear();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Employee" );
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO(
+
+                        // column name pass
+                        resultSet.getString("EmployeeID"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("NIC"),
+                        resultSet.getString("DateOfBirth"),
+                        resultSet.getString("Position"),
+                        resultSet.getDouble("Salary"),
+                        resultSet.getString("ContactNumber"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("JoinedDate"),
+                        resultSet.getString("Status")
+                );
+                System.out.println(employeeInfoDTO);
+                employeeInfoDTOS.add(employeeInfoDTO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        txtTbl.setItems(employeeInfoDTOS);
+    }
+    public void clearFields(){
+        txtEmployeeID.clear();
+        txtName.clear();
+        txtNIC.clear();
+        txtDOB.clear();
+        txtPosition.clear();
+        txtSalary.clear();
+        txtContactNumber.clear();
+        txtAddress.clear();
+        txtJoinedDate.clear();
+        txtStatus.clear();
     }
 }
