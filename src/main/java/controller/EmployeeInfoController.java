@@ -206,6 +206,20 @@ public class EmployeeInfoController implements Initializable {
         employeeInfoDTOS.remove(selectedEmployee);
         txtTbl.refresh();
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
+
+            pstm.setObject(1, txtEmployeeID.getText());
+            pstm.executeUpdate();
+            clearFields();
+            loadEmployeeDetails();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @FXML
