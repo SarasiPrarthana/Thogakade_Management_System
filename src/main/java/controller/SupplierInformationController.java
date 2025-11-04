@@ -97,6 +97,8 @@ public class SupplierInformationController implements Initializable {
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
+        loadSupplierDetails();
+
         txtTbl.setItems(supplierInfoDTOS);
 
         txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -191,6 +193,20 @@ public class SupplierInformationController implements Initializable {
         SupplierInfoDTO selectedSupplier = txtTbl.getSelectionModel().getSelectedItem();
         supplierInfoDTOS.remove(selectedSupplier);
         txtTbl.refresh();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+
+            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Supplier WHERE supplierID = ?");
+
+            pstm.setObject(1, txtSupplierID.getText());
+            pstm.executeUpdate();
+            clearFields();
+            loadSupplierDetails();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
