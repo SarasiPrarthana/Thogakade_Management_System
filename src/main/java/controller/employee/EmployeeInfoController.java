@@ -1,4 +1,4 @@
-package controller;
+package controller.employee;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,11 +9,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.dto.CustomerInfoDTO;
 import model.dto.EmployeeInfoDTO;
-import model.dto.SupplierInfoDTO;
 
-import javax.naming.Name;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
