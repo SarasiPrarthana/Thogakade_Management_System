@@ -17,13 +17,8 @@ import java.util.ResourceBundle;
 
 public class EmployeeInfoController implements Initializable {
 
+    EmployeeService employeeService = new EmployeeController();
     ObservableList<EmployeeInfoDTO> employeeInfoDTOS = FXCollections.observableArrayList();
-//            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
-//            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
-//            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
-//            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
-//            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active"),
-//            new EmployeeInfoDTO("E001","Sunil Perera", "832451230V", "1983-07-12", "Manager", 75000.0, "0712456789", "No.15 Temple Road, Kalutara", "2018-05-10", "Active")
 
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -104,9 +99,9 @@ public class EmployeeInfoController implements Initializable {
 
         loadEmployeeDetails();
 
-        txtTbl.setItems(employeeInfoDTOS);
 
         txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
             if (newValue != null){
                 txtEmployeeID.setText(newValue.getEmployeeID());
                 txtName.setText(newValue.getName());
@@ -137,47 +132,9 @@ public class EmployeeInfoController implements Initializable {
         String joinedDate = txtJoinedDate.getText();
         String status = txtStatus.getText();
 
-        EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
-        employeeInfoDTOS.add(employeeInfoDTO);
-
-        txtTbl.refresh();
-
-        txtEmployeeID.setText("");
-        txtName.setText("");
-        txtNIC.setText("");
-        txtDOB.setText("");
-        txtPosition.setText("");
-        txtSalary.setText("");
-        txtContactNumber.setText("");
-        txtAddress.setText("");
-        txtJoinedDate.setText("");
-        txtStatus.setText("");
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-            String SQL = "Insert INTO Employee VALUES(?,?,?,?,?,?,?,?,?)";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-
-            preparedStatement.setObject(1, EmployeeID);
-            preparedStatement.setObject(2, name);
-            preparedStatement.setObject(3, nic);
-            preparedStatement.setObject(4, dob);
-            preparedStatement.setObject(5, position);
-            preparedStatement.setObject(6, salary);
-            preparedStatement.setObject(7, contactNumber);
-            preparedStatement.setObject(8, address);
-            preparedStatement.setObject(9, joinedDate);
-            preparedStatement.setObject(10, status);
-
-            preparedStatement.execute();
-            loadEmployeeDetails();
-            clearFields();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        employeeService.addEmployeeDetails(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
+        loadEmployeeDetails();
+        clearFields();
     }
 
     @FXML
@@ -199,81 +156,29 @@ public class EmployeeInfoController implements Initializable {
     @FXML
     void btnDeleteAction(ActionEvent event) {
 
-        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
-        employeeInfoDTOS.remove(selectedEmployee);
-        txtTbl.refresh();
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID = ?");
-
-            pstm.setObject(1, txtEmployeeID.getText());
-            pstm.executeUpdate();
-            clearFields();
-            loadEmployeeDetails();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        employeeService.deleteEmployeeDetails(txtEmployeeID.getText());
+        clearFields();
+        loadEmployeeDetails();
 
     }
 
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
-        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
-
-        selectedEmployee.setEmployeeID(txtEmployeeID.getText());
-        selectedEmployee.setName(txtName.getText());
-        selectedEmployee.setNic(txtNIC.getText());
-        selectedEmployee.setDob(txtDOB.getText());
-        selectedEmployee.setPosition(txtPosition.getText());
-        selectedEmployee.setSalary(Double.valueOf(txtSalary.getText()));
-        selectedEmployee.setContactNumber(txtContactNumber.getText());
-        selectedEmployee.setAddress(txtAddress.getText());
-        selectedEmployee.setJoinedDate(txtJoinedDate.getText());
-        selectedEmployee.setStatus(txtStatus.getText());
-
-        txtTbl.refresh();
-
         String EmployeeID = txtEmployeeID.getText();
         String name = txtName.getText();
         String nic = txtNIC.getText();
         String dob = txtDOB.getText();
         String position = txtPosition.getText();
-        Double salary = Double.valueOf(txtSalary.getText());
+        double salary = Double.parseDouble(txtSalary.getText());
         String contactNumber = txtContactNumber.getText();
         String address = txtAddress.getText();
         String joinedDate = txtJoinedDate.getText();
         String status = txtStatus.getText();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-            String SQL = "UPDATE Customer SET WHERE EmployeeID = ?, Name = ?, NIC = ?,DateOfBirth = ?,Position = ?,Salary = ?,ContactNumber = ?,Address = ?,JoinedDate = ?,Status = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-
-            preparedStatement.setObject(1, EmployeeID);
-            preparedStatement.setObject(2, name);
-            preparedStatement.setObject(3, nic);
-            preparedStatement.setObject(4, dob);
-            preparedStatement.setObject(5, position);
-            preparedStatement.setObject(6, salary);
-            preparedStatement.setObject(7, contactNumber);
-            preparedStatement.setObject(8, address);
-            preparedStatement.setObject(9, joinedDate);
-            preparedStatement.setObject(10, status);
-
-            preparedStatement.execute();
-            loadEmployeeDetails();
-            clearFields();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        employeeService.updateEmployeeDetails(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
+        loadEmployeeDetails();
+        clearFields();
     }
 
     private void loadEmployeeDetails() {
