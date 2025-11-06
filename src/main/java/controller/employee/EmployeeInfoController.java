@@ -165,58 +165,20 @@ public class EmployeeInfoController implements Initializable {
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
-        EmployeeInfoDTO selectedEmployee = txtTbl.getSelectionModel().getSelectedItem();
-
-        selectedEmployee.setEmployeeID(txtEmployeeID.getText());
-        selectedEmployee.setName(txtName.getText());
-        selectedEmployee.setNic(txtNIC.getText());
-        selectedEmployee.setDob(txtDOB.getText());
-        selectedEmployee.setPosition(txtPosition.getText());
-        selectedEmployee.setSalary(Double.valueOf(txtSalary.getText()));
-        selectedEmployee.setContactNumber(txtContactNumber.getText());
-        selectedEmployee.setAddress(txtAddress.getText());
-        selectedEmployee.setJoinedDate(txtJoinedDate.getText());
-        selectedEmployee.setStatus(txtStatus.getText());
-
-        txtTbl.refresh();
-
         String EmployeeID = txtEmployeeID.getText();
         String name = txtName.getText();
         String nic = txtNIC.getText();
         String dob = txtDOB.getText();
         String position = txtPosition.getText();
-        Double salary = Double.valueOf(txtSalary.getText());
+        double salary = Double.parseDouble(txtSalary.getText());
         String contactNumber = txtContactNumber.getText();
         String address = txtAddress.getText();
         String joinedDate = txtJoinedDate.getText();
         String status = txtStatus.getText();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-
-            String SQL = "UPDATE Customer SET WHERE EmployeeID = ?, Name = ?, NIC = ?,DateOfBirth = ?,Position = ?,Salary = ?,ContactNumber = ?,Address = ?,JoinedDate = ?,Status = ?";
-
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-
-            preparedStatement.setObject(1, EmployeeID);
-            preparedStatement.setObject(2, name);
-            preparedStatement.setObject(3, nic);
-            preparedStatement.setObject(4, dob);
-            preparedStatement.setObject(5, position);
-            preparedStatement.setObject(6, salary);
-            preparedStatement.setObject(7, contactNumber);
-            preparedStatement.setObject(8, address);
-            preparedStatement.setObject(9, joinedDate);
-            preparedStatement.setObject(10, status);
-
-            preparedStatement.execute();
-            loadEmployeeDetails();
-            clearFields();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        employeeService.updateEmployeeDetails(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
+        loadEmployeeDetails();
+        clearFields();
     }
 
     private void loadEmployeeDetails() {

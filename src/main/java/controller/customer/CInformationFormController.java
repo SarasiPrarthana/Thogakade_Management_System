@@ -150,19 +150,6 @@ public class CInformationFormController implements Initializable {
     @FXML
     void btnUpdateAction(ActionEvent event) {
 
-//        CustomerInfoDTO selectedCustomer = txtTbl.getSelectionModel().getSelectedItem();
-//
-//        selectedCustomer.setCustomerID(txtCustID.getText());
-//        selectedCustomer.setTitle(txtTitle.getText());
-//        selectedCustomer.setName(txtName.getText());
-//        selectedCustomer.setDob(txtDOB.getText());
-//        selectedCustomer.setSalary(Double.parseDouble(txtSalary.getText()));
-//        selectedCustomer.setAddress(txtAddress.getText());
-//        selectedCustomer.setCity(txtCity.getText());
-//        selectedCustomer.setProvince(txtProvince.getText());
-//        selectedCustomer.setPostalCode(txtPostalCode.getText());
-//
-//        txtTbl.refresh();
 
         String customerID = txtCustID.getText();
         String title = txtTitle.getText();
@@ -174,7 +161,6 @@ public class CInformationFormController implements Initializable {
         String province = txtProvince.getText();
         String postalCode = txtPostalCode.getText();
 
-//        CustomerController customerController  = new CustomerController();
         customerService.updateCustomerDetails(customerID,title,name,dob,salary,address,city,province,postalCode);
         loadCustomerDetails();
         clearFields();
