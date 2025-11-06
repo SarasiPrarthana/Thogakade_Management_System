@@ -39,6 +39,17 @@ public class EmployeeController implements EmployeeService{
     @Override
     public void deleteEmployeeDetails(String employeeId) {
 
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE EmployeeID = ?");
+
+            pstm.setObject(1, employeeId);
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
