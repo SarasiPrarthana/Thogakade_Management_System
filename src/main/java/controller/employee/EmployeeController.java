@@ -1,27 +1,48 @@
 package controller.employee;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import db.DBConnection;
 
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class EmployeeController {
+public class EmployeeController implements EmployeeService{
 
-    Stage stage = new Stage();
-
-    @FXML
-    void btnClickOnAction(ActionEvent event) {
+    @Override
+    public void addEmployeeDetails(String EmployeeID, String name, String nic, String dob, String position, double salary, String contactNumber, String address, String joinedDate, String status) {
 
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/employeeInfo_form.fxml"))));
-            stage.show();
-        } catch (IOException e) {
+            Connection connection = DBConnection.getInstance().getConnection();
+
+            String SQL = "Insert INTO Employee VALUES(?,?,?,?,?,?,?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+
+            preparedStatement.setObject(1, EmployeeID);
+            preparedStatement.setObject(2, name);
+            preparedStatement.setObject(3, nic);
+            preparedStatement.setObject(4, dob);
+            preparedStatement.setObject(5, position);
+            preparedStatement.setObject(6, salary);
+            preparedStatement.setObject(7, contactNumber);
+            preparedStatement.setObject(8, address);
+            preparedStatement.setObject(9, joinedDate);
+            preparedStatement.setObject(10, status);
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void deleteEmployeeDetails(String employeeId) {
 
     }
 
+    @Override
+    public void updateEmployeeDetails(String EmployeeID, String name, String nic, String dob, String position, double salary, String contactNumber, String address, String joinedDate, String status) {
+
+    }
 }
