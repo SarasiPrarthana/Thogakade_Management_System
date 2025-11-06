@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="614.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemInformationController">
+<AnchorPane prefHeight="614.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.item.ItemInformationController">
    <children>
       <AnchorPane layoutY="-4.0" prefHeight="142.0" prefWidth="957.0" style="-fx-background-color: #7a1811;">
          <children>

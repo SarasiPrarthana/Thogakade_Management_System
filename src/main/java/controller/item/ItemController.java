@@ -1,4 +1,4 @@
-package controller;
+package controller.item;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,15 +8,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class EmployeeController {
+public class ItemController {
 
     Stage stage = new Stage();
 
     @FXML
-    void btnClickOnAction(ActionEvent event) {
-
+    void btnClickAction(ActionEvent event) {
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/employeeInfo_form.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/itemInformation_form.fxml"))));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);

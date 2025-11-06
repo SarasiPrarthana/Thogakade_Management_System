@@ -1,5 +1,6 @@
-package controller;
+package controller.customer;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.CustomerInfoDTO;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CInformationFormController implements Initializable {
@@ -93,11 +97,11 @@ public class CInformationFormController implements Initializable {
 
         loadCustomerDetails();
 
-        txtTbl.setItems(customerInfoDTOS);
+//        txtTbl.setItems(customerInfoDTOS);
 
-        txtTbl.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null){
-//                setSelectedValue(newValue);
+        txtTbl.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+//
+            if (newValue != null) {
                 txtCustID.setText(newValue.getCustomerID());
                 txtTitle.setText(newValue.getTitle());
                 txtName.setText(newValue.getName());
@@ -107,8 +111,10 @@ public class CInformationFormController implements Initializable {
                 txtCity.setText(newValue.getCity());
                 txtProvince.setText(newValue.getProvince());
                 txtPostalCode.setText(newValue.getPostalCode());
+
             }
         });
+
     }
 
     @FXML
@@ -194,15 +200,15 @@ public class CInformationFormController implements Initializable {
 
         customerInfoDTOS.clear();
 
+        ObservableList<CustomerInfoDTO> customerInfoDTOS = javafx.collections.FXCollections.observableArrayList();
+
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer" );
+            Connection connection = DBConnection.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(
-
-                        // column name pass
                         resultSet.getString("CustomerID"),
                         resultSet.getString("Title"),
                         resultSet.getString("Name"),
@@ -213,14 +219,15 @@ public class CInformationFormController implements Initializable {
                         resultSet.getString("Province"),
                         resultSet.getString("PostalCode")
                 );
-                System.out.println(customerInfoDTO);
                 customerInfoDTOS.add(customerInfoDTO);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         txtTbl.setItems(customerInfoDTOS);
     }
+
     public void clearFields(){
         txtCustID.clear();
         txtTitle.clear();
