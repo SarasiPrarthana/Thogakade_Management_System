@@ -1,9 +1,6 @@
 package controller.customer;
 
 import db.DBConnection;
-import javafx.collections.ObservableList;
-import model.dto.CustomerInfoDTO;
-
 import java.sql.*;
 
 public class CustomerController implements CustomerService {
@@ -13,7 +10,6 @@ public class CustomerController implements CustomerService {
             Connection connection = DBConnection.getInstance().getConnection();
 
             String SQL = "Insert INTO Customer VALUES(?,?,?,?,?,?,?,?,?)";
-
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
 
             preparedStatement.setObject(1, customerID);
@@ -34,6 +30,7 @@ public class CustomerController implements CustomerService {
     }
 
     public void deleteCustomerDetails(String customerId) {
+
         try {
             Connection connection = DBConnection.getInstance().getConnection();
 
@@ -48,6 +45,7 @@ public class CustomerController implements CustomerService {
     }
 
     public void updateCustomerDetails(String customerID, String title, String name, String dob, double salary, String address, String city, String province, String postalCode) {
+
         try {
             Connection connection = DBConnection.getInstance().getConnection();
 
