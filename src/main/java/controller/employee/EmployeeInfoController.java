@@ -177,8 +177,9 @@ public class EmployeeInfoController implements Initializable {
         String status = txtStatus.getText();
 
         employeeService.updateEmployeeDetails(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
-        loadEmployeeDetails();
         clearFields();
+        loadEmployeeDetails();
+
     }
 
     private void loadEmployeeDetails() {
