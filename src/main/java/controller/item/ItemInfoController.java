@@ -126,29 +126,7 @@ public class ItemInfoController implements Initializable {
     private void loadItemDetails() {
 
         itemInfoDTOS.clear();
-
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Item" );
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                ItemInfoDTO itemInfoDTO = new ItemInfoDTO(
-
-                        // column name pass
-                        resultSet.getString("ItemCode"),
-                        resultSet.getString("Description"),
-                        resultSet.getString("Category"),
-                        resultSet.getInt("QtyOnHand"),
-                        resultSet.getDouble("UnitPrice")
-                );
-                System.out.println(itemInfoDTO);
-                itemInfoDTOS.add(itemInfoDTO);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        txtTbl.setItems(itemInfoDTOS);
+        txtTbl.setItems(itemService.loadItemDetails());
     }
     public void clearFields(){
         txtItemCode.clear();

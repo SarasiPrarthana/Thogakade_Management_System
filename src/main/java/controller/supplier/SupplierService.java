@@ -11,5 +11,5 @@ public interface SupplierService {
 
     void updateSupplierDetails(String supplierID,String name,String companyName,String address,String city,String province,String postalCode,String phone,String email);
 
-    ObservableList<SupplierInfoDTO> getAllRoomsDetails();
+    ObservableList<SupplierInfoDTO> loadSupplierDetails();
 }

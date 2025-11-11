@@ -1,11 +1,11 @@
 package controller.item;
 
 import db.DBConnection;
+import javafx.collections.ObservableList;
+import model.dto.ItemInfoDTO;
+import model.dto.SupplierInfoDTO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ItemController implements ItemService{
     @Override
@@ -66,5 +66,34 @@ public class ItemController implements ItemService{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public ObservableList<ItemInfoDTO> loadItemDetails() {
+
+        ObservableList<ItemInfoDTO> itemDetails = javafx.collections.FXCollections.observableArrayList();
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            String SQL = ("SELECT * FROM Item" );
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                itemDetails.add(new ItemInfoDTO(
+
+                        // column name pass
+                        resultSet.getString("ItemCode"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Category"),
+                        resultSet.getInt("QtyOnHand"),
+                        resultSet.getDouble("UnitPrice")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return itemDetails;
     }
 }

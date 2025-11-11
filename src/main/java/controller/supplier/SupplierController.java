@@ -75,7 +75,7 @@ public class SupplierController implements SupplierService{
     }
 
     @Override
-    public ObservableList<SupplierInfoDTO> getAllRoomsDetails() {
+    public ObservableList<SupplierInfoDTO> loadSupplierDetails() {
 
         ObservableList<SupplierInfoDTO> supplierDetails = javafx.collections.FXCollections.observableArrayList();
 
@@ -86,19 +86,19 @@ public class SupplierController implements SupplierService{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-               supplierDetails.add(new SupplierInfoDTO(
+                supplierDetails.add(new SupplierInfoDTO(
 
-                        // column name pass
-                        resultSet.getString("supplierID"),
-                        resultSet.getString("name"),
-                        resultSet.getString("companyName"),
-                        resultSet.getString("address"),
-                        resultSet.getString("city"),
-                        resultSet.getString("province"),
-                        resultSet.getString("postalCode"),
-                        resultSet.getString("phone"),
-                        resultSet.getString("email")
-                       )
+                                // column name pass
+                                resultSet.getString("supplierID"),
+                                resultSet.getString("name"),
+                                resultSet.getString("companyName"),
+                                resultSet.getString("address"),
+                                resultSet.getString("city"),
+                                resultSet.getString("province"),
+                                resultSet.getString("postalCode"),
+                                resultSet.getString("phone"),
+                                resultSet.getString("email")
+                        )
                 );
             }
         } catch (SQLException e) {
@@ -106,6 +106,7 @@ public class SupplierController implements SupplierService{
         }
         return supplierDetails;
     }
+
 
 
 }

@@ -175,7 +175,7 @@ public class SupplierInfoController implements Initializable {
     private void loadSupplierDetails() {
 
         supplierInfoDTOS.clear();
-        txtTbl.setItems(supplierService.getAllRoomsDetails());
+        txtTbl.setItems(supplierService.loadSupplierDetails());
     }
     public void clearFields(){
         txtSupplierID.clear();

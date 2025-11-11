@@ -1,11 +1,10 @@
 package controller.employee;
 
 import db.DBConnection;
+import javafx.collections.ObservableList;
+import model.dto.EmployeeInfoDTO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class EmployeeController implements EmployeeService{
 
@@ -78,6 +77,39 @@ public class EmployeeController implements EmployeeService{
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public ObservableList<EmployeeInfoDTO> loadEmployeeDetails() {
+
+        ObservableList<EmployeeInfoDTO> employeeDetails = javafx.collections.FXCollections.observableArrayList();
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            String SQL = ("SELECT * FROM Employee" );
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                employeeDetails.add(new EmployeeInfoDTO(
+
+                        // column name pass
+                        resultSet.getString("EmployeeID"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("NIC"),
+                        resultSet.getString("DateOfBirth"),
+                        resultSet.getString("Position"),
+                        resultSet.getDouble("Salary"),
+                        resultSet.getString("ContactNumber"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("JoinedDate"),
+                        resultSet.getString("Status")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employeeDetails;
     }
 
 }

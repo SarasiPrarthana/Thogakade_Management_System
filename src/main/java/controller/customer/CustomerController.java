@@ -1,6 +1,10 @@
 package controller.customer;
 
 import db.DBConnection;
+import javafx.collections.ObservableList;
+import model.dto.CustomerInfoDTO;
+import model.dto.EmployeeInfoDTO;
+
 import java.sql.*;
 
 public class CustomerController implements CustomerService {
@@ -67,6 +71,39 @@ public class CustomerController implements CustomerService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public ObservableList<CustomerInfoDTO> loadCustomerDetails() {
+
+        ObservableList<CustomerInfoDTO> customerDetails = javafx.collections.FXCollections.observableArrayList();
+
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            String SQL = ("SELECT * FROM Customer");
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                customerDetails.add(new CustomerInfoDTO(
+
+                        resultSet.getString("CustomerID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("DateOfBirth"),
+                        resultSet.getDouble("Salary"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("City"),
+                        resultSet.getString("Province"),
+                        resultSet.getString("PostalCode")
+                        )
+                );
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return customerDetails;
     }
 }
 
