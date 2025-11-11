@@ -1,5 +1,6 @@
 package controller.employee;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -126,7 +127,7 @@ public class EmployeeInfoController implements Initializable {
         String nic = txtNIC.getText();
         String dob = txtDOB.getText();
         String position = txtPosition.getText();
-        Double salary = Double.valueOf(txtSalary.getText());
+        double salary = Double.parseDouble(txtSalary.getText());
         String contactNumber = txtContactNumber.getText();
         String address = txtAddress.getText();
         String joinedDate = txtJoinedDate.getText();
@@ -187,7 +188,7 @@ public class EmployeeInfoController implements Initializable {
         employeeInfoDTOS.clear();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
+            Connection connection = DBConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Employee" );
             ResultSet resultSet = preparedStatement.executeQuery();
 
