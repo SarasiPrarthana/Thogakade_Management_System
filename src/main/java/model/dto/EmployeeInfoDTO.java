@@ -19,7 +19,7 @@ public class EmployeeInfoDTO {
 
     private String position;
 
-    private Double salary;
+    private double salary;
 
     private String contactNumber;
 

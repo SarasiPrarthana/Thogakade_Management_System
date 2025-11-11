@@ -185,33 +185,7 @@ public class CInformationFormController implements Initializable {
     private void loadCustomerDetails() {
 
         customerInfoDTOS.clear();
-
-        ObservableList<CustomerInfoDTO> customerInfoDTOS = javafx.collections.FXCollections.observableArrayList();
-
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                CustomerInfoDTO customerInfoDTO = new CustomerInfoDTO(
-                        resultSet.getString("CustomerID"),
-                        resultSet.getString("Title"),
-                        resultSet.getString("Name"),
-                        resultSet.getString("DateOfBirth"),
-                        resultSet.getDouble("Salary"),
-                        resultSet.getString("Address"),
-                        resultSet.getString("City"),
-                        resultSet.getString("Province"),
-                        resultSet.getString("PostalCode")
-                );
-                customerInfoDTOS.add(customerInfoDTO);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        txtTbl.setItems(customerInfoDTOS);
+        txtTbl.setItems(customerService.loadCustomerDetails());
     }
 
     public void clearFields(){

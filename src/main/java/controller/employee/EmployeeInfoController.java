@@ -1,5 +1,6 @@
 package controller.employee;
 
+import db.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -126,7 +127,7 @@ public class EmployeeInfoController implements Initializable {
         String nic = txtNIC.getText();
         String dob = txtDOB.getText();
         String position = txtPosition.getText();
-        Double salary = Double.valueOf(txtSalary.getText());
+        double salary = Double.parseDouble(txtSalary.getText());
         String contactNumber = txtContactNumber.getText();
         String address = txtAddress.getText();
         String joinedDate = txtJoinedDate.getText();
@@ -177,41 +178,15 @@ public class EmployeeInfoController implements Initializable {
         String status = txtStatus.getText();
 
         employeeService.updateEmployeeDetails(EmployeeID,name,nic,dob,position,salary,contactNumber,address,joinedDate,status);
-        loadEmployeeDetails();
         clearFields();
+        loadEmployeeDetails();
+
     }
 
     private void loadEmployeeDetails() {
 
         employeeInfoDTOS.clear();
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade_management_system", "root", "1234");
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Employee" );
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                EmployeeInfoDTO employeeInfoDTO = new EmployeeInfoDTO(
-
-                        // column name pass
-                        resultSet.getString("EmployeeID"),
-                        resultSet.getString("Name"),
-                        resultSet.getString("NIC"),
-                        resultSet.getString("DateOfBirth"),
-                        resultSet.getString("Position"),
-                        resultSet.getDouble("Salary"),
-                        resultSet.getString("ContactNumber"),
-                        resultSet.getString("Address"),
-                        resultSet.getString("JoinedDate"),
-                        resultSet.getString("Status")
-                );
-                System.out.println(employeeInfoDTO);
-                employeeInfoDTOS.add(employeeInfoDTO);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        txtTbl.setItems(employeeInfoDTOS);
+        txtTbl.setItems(employeeService.loadEmployeeDetails());
     }
     public void clearFields(){
         txtEmployeeID.clear();
