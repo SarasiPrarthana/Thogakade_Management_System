@@ -85,15 +85,15 @@ public class CInformationFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        colID.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        colDOB.setCellValueFactory(new PropertyValueFactory<>("DateOfBirth"));
-        colSalary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        colCity.setCellValueFactory(new PropertyValueFactory<>("City"));
-        colProvince.setCellValueFactory(new PropertyValueFactory<>("Province"));
-        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
+        colID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDOB.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colProvince.setCellValueFactory(new PropertyValueFactory<>("province"));
+        colPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
 
         loadCustomerDetails();
 
